@@ -1,4 +1,6 @@
-﻿namespace GitStatisticsAnalyzer.Models.Interfaces
+﻿using System.Collections.Generic;
+
+namespace GitStatisticsAnalyzer.Models.Interfaces
 {
     enum ExecutionResult
     {
@@ -11,5 +13,7 @@
     interface IResult
     {
         ExecutionResult ExecutionResult { get; set; }
+
+        void ParseResult(IList<string> lines);
     }
 }

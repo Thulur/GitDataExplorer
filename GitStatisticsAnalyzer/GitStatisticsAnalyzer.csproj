@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Models\CommandFactory.cs" />
     <Compile Include="Models\GitCommand.cs" />
+    <Compile Include="Models\Interfaces\ICommit.cs" />
     <Compile Include="Models\Interfaces\IResult.cs" />
     <Compile Include="Models\Interfaces\IGitCommand.cs" />
     <Compile Include="Models\LogCommand.cs" />
