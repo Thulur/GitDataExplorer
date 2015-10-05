@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitStatisticsAnalyzer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" FontFamily="Arial" FontSize="13.333">
+        Title="MainWindow" Height="445.161" Width="673.387" FontFamily="Arial" FontSize="13.333">
     <Grid>
         <TextBlock x:Name="versionTextBlock" HorizontalAlignment="Right" Margin="0,35,10,0" TextWrapping="Wrap" Text="Git-Version" VerticalAlignment="Top" TextAlignment="Right" Width="118"/>
         <StatusBar Height="20" Margin="0" VerticalAlignment="Bottom" Width="517" FontFamily="Arial" FontSize="13.333">
             <TextBlock FontSize="13.333" FontFamily="Arial" HorizontalAlignment="Right"/>
         </StatusBar>
-        <Menu x:Name="menu" Height="30" VerticalAlignment="Top" Width="517">
+        <Menu x:Name="menu" Height="30" VerticalAlignment="Top">
             <MenuItem/>
         </Menu>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="121,169,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button" Content="Choose Repository" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" Width="126" Click="SelectRepoButtonClick"/>
+        <TextBlock x:Name="currentBranchText" HorizontalAlignment="Left" Margin="0,35,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dataGrid" Margin="0,59,0,0" RenderTransformOrigin="0.5,0.5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="200" FontSize="13.333" FontFamily="Arial" Header="Id"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontSize="13.333" FontFamily="Arial" Width="200*" Header="Message"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

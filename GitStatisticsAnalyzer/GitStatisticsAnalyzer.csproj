@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -69,16 +77,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CommandFactory.cs" />
-    <Compile Include="Models\GitCommand.cs" />
-    <Compile Include="Models\Interfaces\ICommit.cs" />
-    <Compile Include="Models\Interfaces\IResult.cs" />
-    <Compile Include="Models\Interfaces\IGitCommand.cs" />
-    <Compile Include="Models\LogCommand.cs" />
-    <Compile Include="Models\StatusCommand.cs" />
-    <Compile Include="Models\StatusResult.cs" />
-    <Compile Include="Models\VersionCommand.cs" />
-    <Compile Include="Models\VersionResult.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\GitCommand.cs" />
+    <Compile Include="Results\ICommit.cs" />
+    <Compile Include="Results\IResult.cs" />
+    <Compile Include="Commands\IGitCommand.cs" />
+    <Compile Include="Commands\LogCommand.cs" />
+    <Compile Include="Commands\StatusCommand.cs" />
+    <Compile Include="Results\OneLineCommitResult.cs" />
+    <Compile Include="Results\StatusResult.cs" />
+    <Compile Include="Commands\VersionCommand.cs" />
+    <Compile Include="Results\VersionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +105,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

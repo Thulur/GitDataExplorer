@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using GitStatisticsAnalyzer.Models.Interfaces;
+using GitStatisticsAnalyzer.Results;
 
-namespace GitStatisticsAnalyzer.Models
+namespace GitStatisticsAnalyzer.Commands
 {
     /// <summary>
     /// Basic git command class, which encapsulates most of the command creation.

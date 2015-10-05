@@ -1,6 +1,6 @@
-﻿using GitStatisticsAnalyzer.Models.Interfaces;
+﻿using GitStatisticsAnalyzer.Commands;
 
-namespace GitStatisticsAnalyzer.Models
+namespace GitStatisticsAnalyzer.Commands
 {
     class CommandFactory
     {
@@ -9,7 +9,7 @@ namespace GitStatisticsAnalyzer.Models
             this.workingDir = workingDir;
         }
 
-        public IGitCommand GetVersionCommand()
+        public static IGitCommand GetVersionCommand()
         {
             VersionCommand versionCommand = new VersionCommand();
             return versionCommand;

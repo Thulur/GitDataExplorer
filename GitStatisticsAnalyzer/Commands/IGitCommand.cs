@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace GitStatisticsAnalyzer.Models.Interfaces
+using GitStatisticsAnalyzer.Results;
+
+namespace GitStatisticsAnalyzer.Commands
 {
     interface IGitCommand
     {

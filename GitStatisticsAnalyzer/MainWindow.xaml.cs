@@ -1,8 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 
-using GitStatisticsAnalyzer.Models;
-using GitStatisticsAnalyzer.Models.Interfaces;
+using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.Results;
 
 namespace GitStatisticsAnalyzer
 {
@@ -15,16 +15,21 @@ namespace GitStatisticsAnalyzer
         {
             InitializeComponent();
 
-            IGitCommand version = new CommandFactory().GetVersionCommand();
+            IGitCommand version = CommandFactory.GetVersionCommand();
             versionTextBlock.Text = "Git-Version: " + version.GetResult().ToString();
         }
 
         private CommandFactory commandFactory = null;
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void SelectRepoButtonClick(object sender, RoutedEventArgs e)
         {
-            commandFactory = new CommandFactory(@"D:\Arbeit\dpa-dbprojekt\");
-            IGitCommand status = commandFactory.GetStatusCommand();
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            dialog.ShowDialog();
+            commandFactory = new CommandFactory(dialog.FileName);
+            var status = commandFactory.GetStatusCommand().GetResult() as StatusResult;
+
+            currentBranchText.Text = status?.CurrentBranch;
         }
     }
 }
