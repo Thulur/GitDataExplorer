@@ -11,12 +11,14 @@ namespace GitStatisticsAnalyzer
     /// </summary>
     public partial class MainWindow : Window
     {
+        // git rev-parse --show-toplevel 
+
         public MainWindow()
         {
             InitializeComponent();
 
-            IGitCommand version = CommandFactory.GetVersionCommand();
-            versionTextBlock.Text = "Git-Version: " + version.GetResult().ToString();
+            var versionCommand = new CommandFactory().GetCommand<VersionResult>();
+            versionTextBlock.Text = "Git-Version: " + versionCommand.Result.ToString();
         }
 
         private CommandFactory commandFactory = null;
@@ -27,9 +29,9 @@ namespace GitStatisticsAnalyzer
             dialog.IsFolderPicker = true;
             dialog.ShowDialog();
             commandFactory = new CommandFactory(dialog.FileName);
-            var status = commandFactory.GetStatusCommand().GetResult() as StatusResult;
-
-            currentBranchText.Text = status?.CurrentBranch;
+            var statusCommand = commandFactory.GetCommand<StatusResult>();
+            
+            currentBranchText.Text = statusCommand.Result.CurrentBranch;
         }
     }
 }

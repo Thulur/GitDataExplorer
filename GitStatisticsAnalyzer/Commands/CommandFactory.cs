@@ -1,26 +1,46 @@
-﻿using GitStatisticsAnalyzer.Commands;
+﻿using System;
+using GitStatisticsAnalyzer.Results;
+using System.Collections.Generic;
 
 namespace GitStatisticsAnalyzer.Commands
 {
+    enum CommandTypes
+    {
+        LogCommand,
+        StatusCommand,
+        VersionCommand
+    }
+
     class CommandFactory
     {
         public CommandFactory(string workingDir = "")
         {
             this.workingDir = workingDir;
+
+            RegisterCommandTypes();
         }
 
-        public static IGitCommand GetVersionCommand()
+        public IGitCommand<ResultType> GetCommand<ResultType>() where ResultType : IResult
         {
-            VersionCommand versionCommand = new VersionCommand();
-            return versionCommand;
+            var commandType = commands[typeof(ResultType)];
+            var newCommand = (IGitCommand<ResultType>)Activator.CreateInstance(commandType, workingDir);
+
+            // TODO: A second version is needed to cover commands with additional parameters 
+
+            return newCommand;
         }
 
-        public IGitCommand GetStatusCommand()
+        private void RegisterCommandTypes()
         {
-            StatusCommand statusCommand = new StatusCommand(workingDir);
-            return statusCommand;
+            // Do not initalize the commands twice
+            if (commands != null) return;
+
+            commands = new Dictionary<Type, Type>();
+            commands.Add(typeof(StatusResult), typeof(StatusCommand));
+            commands.Add(typeof(VersionResult), typeof(VersionCommand));
         }
 
-        private string workingDir;
+        private readonly string workingDir;
+        private Dictionary<Type, Type> commands = null;
     }
 }

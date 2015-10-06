@@ -71,7 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\GitShowCommand.cs" />
+    <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -79,13 +79,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandFactory.cs" />
-    <Compile Include="Commands\GitCommand.cs" />
+    <Compile Include="Commands\BaseGitCommand.cs" />
     <Compile Include="Results\ICommit.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Commands\IGitCommand.cs" />
     <Compile Include="Commands\LogCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
+    <Compile Include="Results\LogResult.cs" />
     <Compile Include="Results\OneLineCommitResult.cs" />
+    <Compile Include="Results\ShowResult.cs" />
     <Compile Include="Results\StatusResult.cs" />
     <Compile Include="Commands\VersionCommand.cs" />
     <Compile Include="Results\VersionResult.cs" />

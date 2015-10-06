@@ -10,21 +10,23 @@ namespace GitStatisticsAnalyzer.Commands
     /// Basic git command class, which encapsulates most of the command creation.
     /// Call InitCommand(commandName) to execute a command
     /// </summary>
-    class GitCommand : IGitCommand
+    abstract class BaseGitCommand<T> : IGitCommand<T>, IGitCommand where T : IResult
     {
-        public IResult GetResult() => result;
+        public BaseGitCommand(string workingDir)
+        {
+            this.workingDir = workingDir;
+        }
 
         public int LineCount
         {
             get; protected set;
         }
 
-        public IList<string> Lines
-        {
-            get; protected set;
-        }
+        public IList<string> Lines { get; protected set; }
 
-        protected void InitCommand(string commandName, string workingDir = "")
+        public T Result { get; protected set; }
+
+        protected void InitCommand(string commandName)
         {
             ProcessStartInfo info = new ProcessStartInfo();
             info.CreateNoWindow = true;
@@ -46,19 +48,14 @@ namespace GitStatisticsAnalyzer.Commands
             process.Close();
 
             Lines = gitOuput.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            ParseResult();
-
-            if (result == null || result.ExecutionResult == ExecutionResult.NotExecuted)
-            {
-                throw new Exception("Command executed, but no result produced.");
-            }
+            CreateResult();
         }
 
-        protected virtual void ParseResult()
+        protected virtual void CreateResult()
         {
             throw new NotImplementedException();
         }
 
-        protected IResult result;
+        private readonly string workingDir;
     }
 }

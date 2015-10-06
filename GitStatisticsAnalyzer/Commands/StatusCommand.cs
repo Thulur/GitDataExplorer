@@ -1,18 +1,19 @@
-﻿using GitStatisticsAnalyzer.Results;
+﻿using System;
+using GitStatisticsAnalyzer.Results;
 
 namespace GitStatisticsAnalyzer.Commands
 {
-    class StatusCommand : GitCommand
+    class StatusCommand : BaseGitCommand<StatusResult>
     {
-        public StatusCommand(string path)
+        public StatusCommand(string path) : base(path)
         {
-            InitCommand("status", path);
+            InitCommand("status");
         }
 
-        protected override void ParseResult()
+        protected override void CreateResult()
         {
-            result = new StatusResult();
-            result.ParseResult(Lines);
+            Result = new StatusResult();
+            Result.ParseResult(Lines);
         }
     }
 }

@@ -4,21 +4,21 @@ using GitStatisticsAnalyzer.Results;
 
 namespace GitStatisticsAnalyzer.Commands
 {
-    class VersionCommand : GitCommand
+    class VersionCommand : BaseGitCommand<VersionResult>
     {
-        public VersionCommand()
+        public VersionCommand(string path) : base(path)
         {
             InitCommand("--version");
         }
         
-        protected override void ParseResult()
+        protected override void CreateResult()
         {
             LineCount = 1;          
 
             if (Lines.Count != 1) throw new Exception("Unexpected number of lines detected.");
 
-            result = new VersionResult();
-            result.ParseResult(Lines);
+            Result = new VersionResult();
+            Result.ParseResult(Lines);
         }
     }
 }
