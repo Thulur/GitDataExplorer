@@ -1,40 +1,32 @@
-﻿using System;
+﻿using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
-using System.Collections.Generic;
+using System;
 
 namespace GitStatisticsAnalyzer.Commands
 {
     class CommandFactory
     {
-        public CommandFactory(string workingDir = "")
+        public CommandFactory(IResultCommandMapper resultCommandMapper, string workingDir)
         {
             this.workingDir = workingDir;
-
-            RegisterCommandTypes();
+            ResultCommandMapper = resultCommandMapper;
         }
 
-        public IGitCommand<ResultType> GetCommand<ResultType>() where ResultType : IResult
+        public IGitCommand<ResultType> GetCommand<ResultType>() where ResultType : class, IResult, new()
         {
-            var commandType = commands[typeof(ResultType)];
-            var newCommand = (IGitCommand<ResultType>)Activator.CreateInstance(commandType.Item1, workingDir);
+            var commandName = ResultCommandMapper.GetCommandName<ResultType>();
+            var commandType = ResultCommandMapper.GetCommandType<ResultType>();
+            var newInstance = Activator.CreateInstance(commandType, commandName, workingDir);
+            var newCommand = (IGitCommand<ResultType>)newInstance;
 
-            newCommand.Parameters = commandType.Item2;
+            newCommand.Parameters = ResultCommandMapper.GetCommandParameters<ResultType>();
             newCommand.RunCommand();
 
             return newCommand;
         }
 
-        private void RegisterCommandTypes()
-        {
-            // Do not initalize the commands twice
-            if (commands != null) return;
-
-            commands = new Dictionary<Type, Tuple<Type, string>>();
-            commands.Add(typeof(StatusResult), Tuple.Create(typeof(StatusCommand), ""));
-            commands.Add(typeof(VersionResult), Tuple.Create(typeof(VersionCommand), ""));
-        }
+        public IResultCommandMapper ResultCommandMapper { get; }
 
         private readonly string workingDir;
-        private Dictionary<Type, Tuple<Type, string>> commands = null;
     }
 }

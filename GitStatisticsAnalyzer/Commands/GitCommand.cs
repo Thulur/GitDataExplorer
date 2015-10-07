@@ -7,14 +7,16 @@ using GitStatisticsAnalyzer.Results;
 namespace GitStatisticsAnalyzer.Commands
 {
     /// <summary>
-    /// Basic git command class, which encapsulates most of the command creation.
-    /// Call InitCommand(commandName) to execute a command
+    /// Git command class, which encapsulates most of the command creation.
     /// </summary>
-    abstract class BaseGitCommand<T> : IGitCommand<T>, IGitCommand where T : IResult
+    class GitCommand<T> : IGitCommand<T>, IGitCommand  where T : class, IResult, new()
     {
-        public BaseGitCommand(string workingDir)
+        public GitCommand(string commandName, string workingDir)
         {
             this.workingDir = workingDir;
+            this.commandName = commandName;
+
+            InitCommand();
         }
 
         public int LineCount
@@ -28,7 +30,7 @@ namespace GitStatisticsAnalyzer.Commands
 
         public string Parameters { get; set; } = "";
 
-        protected void InitCommand(string commandName)
+        private void InitCommand()
         {
             info.CreateNoWindow = true;
             info.RedirectStandardError = true;
@@ -59,10 +61,12 @@ namespace GitStatisticsAnalyzer.Commands
 
         protected virtual void CreateResult()
         {
-            throw new NotImplementedException();
+            Result = new T();
+            Result.ParseResult(Lines);
         }
 
         private readonly string workingDir;
+        private readonly string commandName;
         private readonly ProcessStartInfo info = new ProcessStartInfo();
     }
 }

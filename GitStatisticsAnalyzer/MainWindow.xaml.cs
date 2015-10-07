@@ -2,6 +2,7 @@
 using System.Windows;
 
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
 
 namespace GitStatisticsAnalyzer
@@ -17,18 +18,20 @@ namespace GitStatisticsAnalyzer
         {
             InitializeComponent();
 
-            var versionCommand = new CommandFactory().GetCommand<VersionResult>();
+            // The version command does not need a repository path
+            var versionCommand = new CommandFactory(resultCommandMapper, "").GetCommand<VersionResult>();
             versionTextBlock.Text = "Git-Version: " + versionCommand.Result.ToString();
         }
 
         private CommandFactory commandFactory = null;
+        private readonly IResultCommandMapper resultCommandMapper = new BaseResultCommandMapper();
 
         private void SelectRepoButtonClick(object sender, RoutedEventArgs e)
         {
             var dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             dialog.ShowDialog();
-            commandFactory = new CommandFactory(dialog.FileName);
+            commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
             var statusCommand = commandFactory.GetCommand<StatusResult>();
             
             currentBranchText.Text = statusCommand.Result.CurrentBranch;
