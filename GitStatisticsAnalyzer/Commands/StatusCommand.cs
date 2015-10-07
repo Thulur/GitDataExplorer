@@ -10,6 +10,8 @@ namespace GitStatisticsAnalyzer.Commands
             InitCommand("status");
         }
 
+
+
         protected override void CreateResult()
         {
             Result = new StatusResult();

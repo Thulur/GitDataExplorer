@@ -4,13 +4,6 @@ using System.Collections.Generic;
 
 namespace GitStatisticsAnalyzer.Commands
 {
-    enum CommandTypes
-    {
-        LogCommand,
-        StatusCommand,
-        VersionCommand
-    }
-
     class CommandFactory
     {
         public CommandFactory(string workingDir = "")
@@ -23,9 +16,10 @@ namespace GitStatisticsAnalyzer.Commands
         public IGitCommand<ResultType> GetCommand<ResultType>() where ResultType : IResult
         {
             var commandType = commands[typeof(ResultType)];
-            var newCommand = (IGitCommand<ResultType>)Activator.CreateInstance(commandType, workingDir);
+            var newCommand = (IGitCommand<ResultType>)Activator.CreateInstance(commandType.Item1, workingDir);
 
-            // TODO: A second version is needed to cover commands with additional parameters 
+            newCommand.Parameters = commandType.Item2;
+            newCommand.RunCommand();
 
             return newCommand;
         }
@@ -35,12 +29,12 @@ namespace GitStatisticsAnalyzer.Commands
             // Do not initalize the commands twice
             if (commands != null) return;
 
-            commands = new Dictionary<Type, Type>();
-            commands.Add(typeof(StatusResult), typeof(StatusCommand));
-            commands.Add(typeof(VersionResult), typeof(VersionCommand));
+            commands = new Dictionary<Type, Tuple<Type, string>>();
+            commands.Add(typeof(StatusResult), Tuple.Create(typeof(StatusCommand), ""));
+            commands.Add(typeof(VersionResult), Tuple.Create(typeof(VersionCommand), ""));
         }
 
         private readonly string workingDir;
-        private Dictionary<Type, Type> commands = null;
+        private Dictionary<Type, Tuple<Type, string>> commands = null;
     }
 }

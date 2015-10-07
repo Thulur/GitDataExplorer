@@ -4,17 +4,17 @@ namespace GitStatisticsAnalyzer.Commands
 {
     interface IGitCommand
     {
+        void RunCommand();
+
         int LineCount { get; }
 
         IList<string> Lines { get; }
+
+        string Parameters { get; set; }
     }
 
-    interface IGitCommand<T>
+    interface IGitCommand<T> : IGitCommand
     {
-        int LineCount { get; }
-
-        IList<string> Lines { get; }
-
         T Result { get; }
     }
 }

@@ -26,19 +26,24 @@ namespace GitStatisticsAnalyzer.Commands
 
         public T Result { get; protected set; }
 
+        public string Parameters { get; set; } = "";
+
         protected void InitCommand(string commandName)
         {
-            ProcessStartInfo info = new ProcessStartInfo();
             info.CreateNoWindow = true;
             info.RedirectStandardError = true;
             info.RedirectStandardOutput = true;
             info.UseShellExecute = false;
             info.FileName = "git.exe";
+            info.Arguments = commandName;
+            info.WorkingDirectory = workingDir;            
+        }
+
+        public virtual void RunCommand()
+        {
+            info.Arguments += (" " + Parameters) ?? "";
 
             Process process = new Process();
-            info.Arguments = commandName;
-            info.WorkingDirectory = workingDir;
-
             process.StartInfo = info;
             process.Start();
 
@@ -48,6 +53,7 @@ namespace GitStatisticsAnalyzer.Commands
             process.Close();
 
             Lines = gitOuput.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
             CreateResult();
         }
 
@@ -57,5 +63,6 @@ namespace GitStatisticsAnalyzer.Commands
         }
 
         private readonly string workingDir;
+        private readonly ProcessStartInfo info = new ProcessStartInfo();
     }
 }
