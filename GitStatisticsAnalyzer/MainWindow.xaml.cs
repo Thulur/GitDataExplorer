@@ -12,7 +12,9 @@ namespace GitStatisticsAnalyzer
     /// </summary>
     public partial class MainWindow : Window
     {
-        // git rev-parse --show-toplevel 
+        // git rev-parse --show-toplevel                                    Shows base dir of the repo
+        // git log --pretty=format: --name-only --diff-filter=A             All files that ever existed in the repository
+        // git log --oneline -- <path/file>                                 Get all commits a file is part of
 
         public MainWindow()
         {
@@ -20,7 +22,7 @@ namespace GitStatisticsAnalyzer
 
             // The version command does not need a repository path
             var versionCommand = new CommandFactory(resultCommandMapper, "").GetCommand<VersionResult>();
-            versionTextBlock.Text = "Git-Version: " + versionCommand.Result.ToString();
+            Title += " (Git-Version: " + versionCommand.Result.ToString() + ")";
         }
 
         private CommandFactory commandFactory = null;
@@ -33,8 +35,16 @@ namespace GitStatisticsAnalyzer
             dialog.ShowDialog();
             commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
             var statusCommand = commandFactory.GetCommand<StatusResult>();
-
-            currentBranchText.Text = statusCommand.Result.CurrentBranch;
+            
+            if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
+            {
+                commandFactory = null;
+                MessageBox.Show("The selected file contains no git repository.", "Error!", MessageBoxButton.OK);
+            }
+            else
+            {
+                currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
+            }
         }
     }
 }

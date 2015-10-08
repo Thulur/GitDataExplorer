@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitStatisticsAnalyzer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="653.059" Width="864.841" FontFamily="Arial" FontSize="13.333">
+        Title="Git Statistics Analyzer" Height="691.636" Width="846.387" FontFamily="Arial" FontSize="13.333" MinHeight="400" MinWidth="640">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="versionTextBlock" HorizontalAlignment="Right" Margin="0,143,10,0" TextWrapping="Wrap" Text="Git-Version" VerticalAlignment="Top" TextAlignment="Right" Width="118" Height="15"/>
-        <TextBlock x:Name="currentBranchText" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="57" Margin="10,143,0,0" Text="Current Branch"/>
-        <DataGrid x:Name="dataGrid" Margin="0,163,0,0" RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="dataGrid" Margin="0,138,0,0" RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False" BorderBrush="White" Background="#FFFFFDFD">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="200" FontSize="13.333" FontFamily="Arial" Header="Id"/>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontSize="13.333" FontFamily="Arial" Width="200*" Header="Message"/>
@@ -20,11 +21,16 @@
         </DataGrid>
         <Ribbon x:Name="ribbon" VerticalAlignment="Top" Height="138" Background="White">
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Repository">
-                <RibbonGroup Header="Select">
+                <RibbonGroup Header="Select" BorderBrush="White">
                     <RibbonButton Label="Choose Repository" Click="SelectRepoButtonClick"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-
+        <DockPanel VerticalAlignment="Bottom">
+            <StatusBar DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FFB5B5B5">
+                <StatusBarItem/>
+                <TextBlock x:Name="currentBranch" Text="" HorizontalAlignment="Right"/>
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </Window>

@@ -11,8 +11,15 @@ namespace GitStatisticsAnalyzer.Results
 
         public void ParseResult(IList<string> lines)
         {
-            CurrentBranch = lines[0].Replace("On branch ", "");
-            ExecutionResult = ExecutionResult.Success;
+            if (lines.Count > 0)
+            {
+                CurrentBranch = lines[0].Replace("On branch ", "");
+                ExecutionResult = ExecutionResult.Success;
+            }
+            else
+            {
+                ExecutionResult = ExecutionResult.NoRepository;
+            }
         }
     }
 }

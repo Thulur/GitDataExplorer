@@ -43,7 +43,7 @@ namespace GitStatisticsAnalyzer.Commands
 
         public virtual void RunCommand()
         {
-            info.Arguments += (" " + Parameters) ?? "";
+            info.Arguments += " " + Parameters;
 
             Process process = new Process();
             process.StartInfo = info;
