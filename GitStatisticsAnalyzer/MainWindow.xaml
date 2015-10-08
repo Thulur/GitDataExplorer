@@ -5,23 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitStatisticsAnalyzer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="445.161" Width="673.387" FontFamily="Arial" FontSize="13.333">
+        Title="MainWindow" Height="653.059" Width="864.841" FontFamily="Arial" FontSize="13.333">
     <Grid>
-        <TextBlock x:Name="versionTextBlock" HorizontalAlignment="Right" Margin="0,35,10,0" TextWrapping="Wrap" Text="Git-Version" VerticalAlignment="Top" TextAlignment="Right" Width="118"/>
-        <StatusBar Height="20" Margin="0" VerticalAlignment="Bottom" Width="517" FontFamily="Arial" FontSize="13.333">
-            <TextBlock FontSize="13.333" FontFamily="Arial" HorizontalAlignment="Right"/>
-        </StatusBar>
-        <Menu x:Name="menu" Height="30" VerticalAlignment="Top">
-            <MenuItem/>
-        </Menu>
-        <Button x:Name="button" Content="Choose Repository" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" Width="126" Click="SelectRepoButtonClick"/>
-        <TextBlock x:Name="currentBranchText" HorizontalAlignment="Left" Margin="0,35,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dataGrid" Margin="0,59,0,0" RenderTransformOrigin="0.5,0.5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="versionTextBlock" HorizontalAlignment="Right" Margin="0,143,10,0" TextWrapping="Wrap" Text="Git-Version" VerticalAlignment="Top" TextAlignment="Right" Width="118" Height="15"/>
+        <TextBlock x:Name="currentBranchText" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="57" Margin="10,143,0,0" Text="Current Branch"/>
+        <DataGrid x:Name="dataGrid" Margin="0,163,0,0" RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="200" FontSize="13.333" FontFamily="Arial" Header="Id"/>
                 <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontSize="13.333" FontFamily="Arial" Width="200*" Header="Message"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top" Height="138" Background="White">
+            <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Repository">
+                <RibbonGroup Header="Select">
+                    <RibbonButton Label="Choose Repository" Click="SelectRepoButtonClick"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
 
     </Grid>
 </Window>

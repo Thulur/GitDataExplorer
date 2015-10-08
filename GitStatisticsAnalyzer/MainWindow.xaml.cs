@@ -33,7 +33,7 @@ namespace GitStatisticsAnalyzer
             dialog.ShowDialog();
             commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
             var statusCommand = commandFactory.GetCommand<StatusResult>();
-            
+
             currentBranchText.Text = statusCommand.Result.CurrentBranch;
         }
     }
