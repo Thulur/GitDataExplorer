@@ -23,6 +23,13 @@
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Repository">
                 <RibbonGroup Header="Select" BorderBrush="White">
                     <RibbonButton Label="Choose Repository" Click="SelectRepoButtonClick"/>
+                    <RibbonButton Label="Clone Repository" IsEnabled="False"/>
+                </RibbonGroup>
+                <RibbonGroup Header="View">
+                    <RibbonButton Label="Short" IsEnabled="False"/>
+                    <RibbonButton Label="Full" IsEnabled="False"/>
+                    <RibbonButton Label="Detail" IsEnabled="False"/>
+                    <RibbonButton Label="Disable Id" IsEnabled="False"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
