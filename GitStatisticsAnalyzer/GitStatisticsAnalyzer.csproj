@@ -72,6 +72,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="ResultCommandMapper\BaseResultCommandMapper.cs" />
     <Compile Include="ResultCommandMapper\IResultCommandMapper.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -82,11 +83,12 @@
   <ItemGroup>
     <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\GitCommand.cs" />
-    <Compile Include="Results\ICommit.cs" />
+    <Compile Include="Results\Commits\ICommit.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Commands\IGitCommand.cs" />
     <Compile Include="Results\LogResult.cs" />
-    <Compile Include="Results\OneLineCommitResult.cs" />
+    <Compile Include="Results\Commits\SimpleCommitResult.cs" />
+    <Compile Include="Results\OneLineResult.cs" />
     <Compile Include="Results\ShowResult.cs" />
     <Compile Include="Results\StatusResult.cs" />
     <Compile Include="Results\VersionResult.cs" />

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace GitStatisticsAnalyzer.Results
+namespace GitStatisticsAnalyzer.Results.Commits
 {
-    class OneLineCommitResult : ICommit
+    class SimpleCommitResult : ICommit
     {
         public ExecutionResult ExecutionResult { get; }
 
@@ -13,7 +14,10 @@ namespace GitStatisticsAnalyzer.Results
 
         public void ParseResult(IList<string> lines)
         {
-            throw new NotImplementedException();
+            // The one line commit should only be initialized with a string looking like: <id> <message>
+            Debug.Assert(lines.Count == 1);
+
+
         }
     }
 }
