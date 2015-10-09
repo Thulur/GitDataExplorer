@@ -14,11 +14,11 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             commands = new Dictionary<Type, string>();
             parameters = new Dictionary<Type, string>();
 
-            commands.Add(typeof(OneLineResult), "log ");
+            commands.Add(typeof(ListSimpleCommitsResult), "log ");
             commands.Add(typeof(StatusResult), "status");
             commands.Add(typeof(VersionResult), "--version");
 
-            parameters.Add(typeof(OneLineResult), "--oneline");
+            parameters.Add(typeof(ListSimpleCommitsResult), "--oneline");
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");
         }

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using GitStatisticsAnalyzer.Results.Commits;
 
 namespace GitStatisticsAnalyzer.Results
 {
-    class OneLineResult : IResult
+    class ListSimpleCommitsResult : IResult
     {
-        public ExecutionResult ExecutionResult { get; }
+        public ExecutionResult ExecutionResult { get; private set; }
 
-        public IList<SimpleCommitResult> Commits { get; }
+        public IList<SimpleCommitResult> Commits { get; } = new List<SimpleCommitResult>();
 
         public void ParseResult(IList<string> lines)
         {

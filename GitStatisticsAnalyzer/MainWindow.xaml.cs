@@ -1,16 +1,20 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
+
 
 namespace GitStatisticsAnalyzer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    partial class MainWindow : Window
     {
         // git rev-parse --show-toplevel                                    Shows base dir of the repo
         // git log --pretty=format: --name-only --diff-filter=A             All files that ever existed in the repository
@@ -28,7 +32,7 @@ namespace GitStatisticsAnalyzer
         private CommandFactory commandFactory = null;
         private readonly IResultCommandMapper resultCommandMapper = new BaseResultCommandMapper();
 
-        private void SelectRepoButtonClick(object sender, RoutedEventArgs e)
+        private async void SelectRepoButtonClick(object sender, RoutedEventArgs e)
         {
             var dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
@@ -45,6 +49,10 @@ namespace GitStatisticsAnalyzer
             {
                 currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
             }
+
+            var oneLineResult = await Task.Run(() => { return commandFactory.GetCommand<ListSimpleCommitsResult>(); });
+
+            dataGrid.ItemsSource = oneLineResult.Result.Commits;
         }
     }
 }
