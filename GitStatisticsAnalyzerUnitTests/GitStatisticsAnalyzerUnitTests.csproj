@@ -53,6 +53,12 @@
     <Compile Include="GitVersionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitStatisticsAnalyzer\GitStatisticsAnalyzer.csproj">
+      <Project>{792f1f78-afff-4bd9-86e0-4fef9071379e}</Project>
+      <Name>GitStatisticsAnalyzer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

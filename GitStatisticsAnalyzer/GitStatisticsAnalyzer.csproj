@@ -88,7 +88,7 @@
     <Compile Include="Commands\IGitCommand.cs" />
     <Compile Include="Results\LogResult.cs" />
     <Compile Include="Results\Commits\SimpleCommitResult.cs" />
-    <Compile Include="Results\OneLineResult.cs" />
+    <Compile Include="Results\ListSimpleCommitsResult.cs" />
     <Compile Include="Results\ShowResult.cs" />
     <Compile Include="Results\StatusResult.cs" />
     <Compile Include="Results\VersionResult.cs" />
