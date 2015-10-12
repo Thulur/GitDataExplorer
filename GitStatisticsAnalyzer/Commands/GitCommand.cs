@@ -21,7 +21,7 @@ namespace GitStatisticsAnalyzer.Commands
 
         public int LineCount
         {
-            get; protected set;
+            get; private set;
         }
 
         public IList<string> Lines { get; protected set; }
@@ -41,7 +41,7 @@ namespace GitStatisticsAnalyzer.Commands
             info.WorkingDirectory = workingDir;            
         }
 
-        public virtual void RunCommand()
+        public void RunCommand()
         {
             info.Arguments += " " + Parameters;
 
@@ -59,7 +59,7 @@ namespace GitStatisticsAnalyzer.Commands
             CreateResult();
         }
 
-        protected virtual void CreateResult()
+        protected void CreateResult()
         {
             Result = new T();
             Result.ParseResult(Lines);
