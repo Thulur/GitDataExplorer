@@ -12,14 +12,14 @@ namespace GitStatisticsAnalyzer.Commands
             ResultCommandMapper = resultCommandMapper;
         }
 
-        public IGitCommand<ResultType> GetCommand<ResultType>() where ResultType : class, IResult, new()
+        public IGitCommand<TResult> GetCommand<TResult>() where TResult : class, IResult, new()
         {
-            var commandName = ResultCommandMapper.GetCommandName<ResultType>();
-            var commandType = ResultCommandMapper.GetCommandType<ResultType>();
+            var commandName = ResultCommandMapper.GetCommandName<TResult>();
+            var commandType = ResultCommandMapper.GetCommandType<TResult>();
             var newInstance = Activator.CreateInstance(commandType, commandName, workingDir);
-            var newCommand = (IGitCommand<ResultType>)newInstance;
+            var newCommand = (IGitCommand<TResult>)newInstance;
 
-            newCommand.Parameters = ResultCommandMapper.GetCommandParameters<ResultType>();
+            newCommand.Parameters = ResultCommandMapper.GetCommandParameters<TResult>();
             newCommand.RunCommand();
 
             return newCommand;

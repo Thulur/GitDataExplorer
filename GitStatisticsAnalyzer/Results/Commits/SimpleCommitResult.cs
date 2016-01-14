@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace GitStatisticsAnalyzer.Results.Commits
 {
     class SimpleCommitResult : ICommit
     {
+        [Browsable(false)]
+        [Display(AutoGenerateField = false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ExecutionResult ExecutionResult { get; }
 
         public string Id { get; private set; } = "";

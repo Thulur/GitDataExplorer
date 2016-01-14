@@ -12,8 +12,8 @@ namespace GitStatisticsAnalyzer.Results
 
     interface IResult
     {
-        ExecutionResult ExecutionResult { get; }
-
         void ParseResult(IList<string> lines);
+
+        ExecutionResult ExecutionResult { get; }
     }
 }

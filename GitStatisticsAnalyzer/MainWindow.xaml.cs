@@ -26,7 +26,7 @@ namespace GitStatisticsAnalyzer
 
             // The version command does not need a repository path
             var versionCommand = new CommandFactory(resultCommandMapper, "").GetCommand<VersionResult>();
-            Title += " (Git-Version: " + versionCommand.Result.ToString() + ")";
+            Title += " (Git-Version: " + versionCommand.Result + ")";
         }
 
         private CommandFactory commandFactory = null;
@@ -34,25 +34,30 @@ namespace GitStatisticsAnalyzer
 
         private async void SelectRepoButtonClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new CommonOpenFileDialog();
-            dialog.IsFolderPicker = true;
-            dialog.ShowDialog();
-            commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
-            var statusCommand = commandFactory.GetCommand<StatusResult>();
-            
-            if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
+            using (var dialog = new CommonOpenFileDialog())
             {
-                commandFactory = null;
-                MessageBox.Show("The selected file contains no git repository.", "Error!", MessageBoxButton.OK);
-            }
-            else
-            {
-                currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
-            }
+                dialog.IsFolderPicker = true;
 
-            var oneLineResult = await Task.Run(() => { return commandFactory.GetCommand<ListSimpleCommitsResult>(); });
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
+                    var statusCommand = commandFactory.GetCommand<StatusResult>();
 
-            dataGrid.ItemsSource = oneLineResult.Result.Commits;
+                    if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
+                    {
+                        commandFactory = null;
+                        MessageBox.Show("The selected file contains no git repository.", "Error!", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
+                    }
+
+                    var oneLineResult = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
+
+                    dataGrid.ItemsSource = oneLineResult.Result.Commits;
+                }
+            }
         }
     }
 }
