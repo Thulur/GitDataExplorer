@@ -2,7 +2,7 @@
 
 namespace GitStatisticsAnalyzer.Results
 {
-    enum ExecutionResult
+    public enum ExecutionResult
     {
         NotExecuted,
         Success,
@@ -10,7 +10,7 @@ namespace GitStatisticsAnalyzer.Results
         NoRepository
     }
 
-    interface IResult
+    public interface IResult
     {
         void ParseResult(IList<string> lines);
 

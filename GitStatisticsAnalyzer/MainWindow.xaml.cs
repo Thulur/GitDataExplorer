@@ -7,6 +7,8 @@ using System.Windows.Input;
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
+using GitStatisticsAnalyzer.Results.Commits;
+using GitStatisticsAnalyzer.Views;
 
 
 namespace GitStatisticsAnalyzer
@@ -26,6 +28,7 @@ namespace GitStatisticsAnalyzer
 
             // The version command does not need a repository path
             var versionCommand = new CommandFactory(resultCommandMapper, "").GetCommand<VersionResult>();
+            versionCommand.Execute();
             Title += " (Git-Version: " + versionCommand.Result + ")";
         }
 
@@ -42,6 +45,7 @@ namespace GitStatisticsAnalyzer
                 {
                     commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
                     var statusCommand = commandFactory.GetCommand<StatusResult>();
+                    statusCommand.Execute();
 
                     if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
                     {
@@ -53,11 +57,18 @@ namespace GitStatisticsAnalyzer
                         currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
                     }
 
-                    var oneLineResult = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
+                    var oneLineCommand = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
+                    oneLineCommand.Execute();
 
-                    dataGrid.ItemsSource = oneLineResult.Result.Commits;
+                    dataGrid.ItemsSource = oneLineCommand.Result.Commits;
                 }
             }
+        }
+
+        private void SimpleCommitDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var selectedSimpleCommit = ((DataGrid) sender).SelectedItem as SimpleCommitResult;
+            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
         }
     }
 }

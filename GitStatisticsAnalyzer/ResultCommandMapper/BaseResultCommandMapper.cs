@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.Results;
+using GitStatisticsAnalyzer.Results.Commits;
 
 
 namespace GitStatisticsAnalyzer.ResultCommandMapper
@@ -15,11 +16,13 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             parameters = new Dictionary<Type, string>();
 
             commands.Add(typeof(ListSimpleCommitsResult), "log");
+            commands.Add(typeof(FullCommitResult), "show");
             commands.Add(typeof(LogResult), "log");
             commands.Add(typeof(StatusResult), "status");
             commands.Add(typeof(VersionResult), "--version");
 
             parameters.Add(typeof(ListSimpleCommitsResult), "--oneline");
+            parameters.Add(typeof(FullCommitResult), "");
             parameters.Add(typeof(LogResult), "");
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");

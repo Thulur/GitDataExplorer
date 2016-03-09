@@ -68,9 +68,10 @@
     <Compile Include="Data\Author.cs" />
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />
     <Compile Include="Results\Commits\FullCommitResult.cs" />
-    <Compile Include="Views\CommitView.xaml.cs">
-      <DependentUpon>CommitView.xaml</DependentUpon>
+    <Compile Include="Views\FullCommitView.xaml.cs">
+      <DependentUpon>FullCommitView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ICommitView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,7 +87,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\CommitView.xaml">
+    <Page Include="Views\FullCommitView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

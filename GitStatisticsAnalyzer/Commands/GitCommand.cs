@@ -38,15 +38,16 @@ namespace GitStatisticsAnalyzer.Commands
             info.UseShellExecute = false;
             info.FileName = "git.exe";
             info.Arguments = commandName;
-            info.WorkingDirectory = workingDir;            
+            info.WorkingDirectory = workingDir;
+
+            Result = new T();
         }
 
-        public void RunCommand()
+        public void Execute()
         {
             info.Arguments += " " + Parameters;
 
-            Process process = new Process();
-            process.StartInfo = info;
+            Process process = new Process {StartInfo = info};
             process.Start();
 
             string gitOuput = process.StandardOutput.ReadToEnd();
@@ -61,7 +62,6 @@ namespace GitStatisticsAnalyzer.Commands
 
         protected void CreateResult()
         {
-            Result = new T();
             Result.ParseResult(Lines);
         }
 

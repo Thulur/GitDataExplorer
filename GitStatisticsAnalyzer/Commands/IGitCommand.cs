@@ -2,9 +2,9 @@
 
 namespace GitStatisticsAnalyzer.Commands
 {
-    interface IGitCommand
+    public interface IGitCommand
     {
-        void RunCommand();
+        void Execute();
 
         int LineCount { get; }
 
@@ -13,7 +13,7 @@ namespace GitStatisticsAnalyzer.Commands
         string Parameters { get; set; }
     }
 
-    interface IGitCommand<T> : IGitCommand
+    public interface IGitCommand<T> : IGitCommand
     {
         T Result { get; }
     }

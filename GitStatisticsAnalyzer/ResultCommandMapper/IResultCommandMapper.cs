@@ -4,7 +4,7 @@ using GitStatisticsAnalyzer.Results;
 
 namespace GitStatisticsAnalyzer.ResultCommandMapper
 {
-    interface IResultCommandMapper
+    public interface IResultCommandMapper
     {
         string GetCommandName<ResultType>() where ResultType : IResult;
 

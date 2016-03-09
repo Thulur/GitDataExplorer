@@ -10,7 +10,6 @@ namespace GitStatisticsAnalyzer.Results.Commits
     {
         [Browsable(false)]
         [Display(AutoGenerateField = false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ExecutionResult ExecutionResult { get; }
 
         public string Id { get; private set; } = "";

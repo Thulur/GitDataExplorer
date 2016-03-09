@@ -1,11 +1,11 @@
-﻿<Window x:Class="GitStatisticsAnalyzer.Views.CommitView"
+﻿<Window x:Class="GitStatisticsAnalyzer.Views.FullCommitView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitStatisticsAnalyzer.Views"
         mc:Ignorable="d"
-        Title="CommitView" Height="424.274" Width="512.137">
+        Title="CommitView" Height="424.274" Width="512.137" Loaded="_WindowLoaded">
     <Grid>
         <Ribbon x:Name="ribbon" VerticalAlignment="Top"/>
 

@@ -4,7 +4,7 @@ using System;
 
 namespace GitStatisticsAnalyzer.Commands
 {
-    class CommandFactory
+    public class CommandFactory
     {
         public CommandFactory(IResultCommandMapper resultCommandMapper, string workingDir)
         {
@@ -20,7 +20,6 @@ namespace GitStatisticsAnalyzer.Commands
             var newCommand = (IGitCommand<TResult>)newInstance;
 
             newCommand.Parameters = ResultCommandMapper.GetCommandParameters<TResult>();
-            newCommand.RunCommand();
 
             return newCommand;
         }

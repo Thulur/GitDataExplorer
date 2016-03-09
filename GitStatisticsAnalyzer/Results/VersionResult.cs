@@ -40,6 +40,6 @@ namespace GitStatisticsAnalyzer.Results
 
         public byte Bugfix { get; private set; }
 
-        public ExecutionResult ExecutionResult { get; set; }
+        public ExecutionResult ExecutionResult { get; private set; }
     }
 }
