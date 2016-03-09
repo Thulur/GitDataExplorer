@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using GitStatisticsAnalyzer.Results;
+using System.Collections.Generic;
 
 namespace GitStatisticsAnalyzerUnitTests
 {
@@ -16,14 +17,15 @@ namespace GitStatisticsAnalyzerUnitTests
         [TestMethod]
         public void TestExistingGitVersion()
         {
-            VersionResult versionResult = new VersionResult();
-            //versionResult.ParseResult();
-        }
+            var versionResult = new VersionResult();
+            var gitOutput = new List<string> {"git version 2.5.0"};
 
-        [TestMethod]
-        public void TestNoGitInstalled()
-        {
+            versionResult.ParseResult(gitOutput);
 
+            Assert.AreEqual(versionResult.Major, 2);
+            Assert.AreEqual(versionResult.Minor, 5);
+            Assert.AreEqual(versionResult.Bugfix, 0);
+            Assert.AreEqual(versionResult.ExecutionResult, ExecutionResult.Success);
         }
     }
 }
