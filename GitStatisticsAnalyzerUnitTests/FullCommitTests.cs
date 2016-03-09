@@ -15,11 +15,11 @@ namespace GitStatisticsAnalyzerUnitTests
         {
             var fullCommit = new FullCommitResult();
             var gitOutput = new List<string>();
-            var expectedMessage = "Init repository\n\n";
-            expectedMessage += "- add basic classes for the analyzer\n";
+            var expectedTitle = "Init repository";
+            var expectedMessage = "- add basic classes for the analyzer\n";
             expectedMessage += "- implement version command\n";
             expectedMessage += "- implement status command(currently only the branch is saved)\n";
-            expectedMessage += "- create log command";
+            expectedMessage += "- create log command\n";
 
             gitOutput.Add("commit 94a97da2a51ee4f1b7c13370d86f2b2928e654d4");
             gitOutput.Add("Author: Sebastian Koall <sebastian.koall@student.hpi.uni-potsdam.de>");
@@ -31,6 +31,8 @@ namespace GitStatisticsAnalyzerUnitTests
             gitOutput.Add("- implement version command");
             gitOutput.Add("- implement status command(currently only the branch is saved)");
             gitOutput.Add("- create log command");
+            gitOutput.Add("");
+            gitOutput.Add("diff --git path/to/some/file.txt");
             fullCommit.ParseResult(gitOutput);
 
             
@@ -39,6 +41,7 @@ namespace GitStatisticsAnalyzerUnitTests
             Assert.AreEqual("Sebastian Koall", fullCommit.Author.Name);
             Assert.AreEqual("sebastian.koall@student.hpi.uni-potsdam.de", fullCommit.Author.Email);
             Assert.AreEqual(new DateTime(2015, 9, 27, 18, 19, 19), fullCommit.Date);
+            Assert.AreEqual(expectedTitle, fullCommit.Title);
             Assert.AreEqual(expectedMessage, fullCommit.Message);
             Assert.AreEqual(ExecutionResult.Success, fullCommit.ExecutionResult);
         }

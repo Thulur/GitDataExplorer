@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text;
 using GitStatisticsAnalyzer.Data;
 
 namespace GitStatisticsAnalyzer.Results.Commits
@@ -18,6 +18,8 @@ namespace GitStatisticsAnalyzer.Results.Commits
 
         public DateTime Date { get; private set; }
 
+        public string Title { get; private set; }
+
         public string Message { get; private set; }
 
         public void ParseResult(IList<string> lines)
@@ -31,7 +33,7 @@ namespace GitStatisticsAnalyzer.Results.Commits
             Id = lines[0].Replace("commit ", "");
             Author = new Author(lines[1]);
             ParseDate(lines[2]);
-            ParseMessage(lines);
+            ParseTitleAndMessage(lines);
             ExecutionResult = ExecutionResult.Success;
         }
 
@@ -48,9 +50,35 @@ namespace GitStatisticsAnalyzer.Results.Commits
             Date = new DateTime(tmpDate.Year, tmpDate.Month, tmpDate.Day, hours, minutes, seconds);
         }
 
+        private void ParseTitleAndMessage(IList<string> lines)
+        {
+            Title = lines[4];
+
+            if (lines.Count > 5)
+            {
+                ParseMessage(lines);
+            }
+        }
+
         private void ParseMessage(IList<string> lines)
         {
-            // Take all lines under the date and save them into the message (ignore the empty line between date and first message line)
+            var i = lines[5].Length > 0 ? 5 : 6;
+
+            var messageSb = new StringBuilder();
+
+            for (; i < lines.Count; ++i)
+            {
+                messageSb.Append(lines[i]);
+
+                if (i >= lines.Count - 1) break;
+                
+                // Test whether the diff section of the commit starts
+                if (lines[i + 1].StartsWith("diff --git")) break;
+
+                messageSb.Append("\n");
+            }
+
+            Message = messageSb.ToString();
         }
     }
 }
