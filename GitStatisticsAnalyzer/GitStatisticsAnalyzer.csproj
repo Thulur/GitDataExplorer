@@ -66,8 +66,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Author.cs" />
+    <Compile Include="Files\IFile.cs" />
+    <Compile Include="Results\Commits\BareCommitResult.cs" />
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />
     <Compile Include="Results\Commits\FullCommitResult.cs" />
+    <Compile Include="Results\DanglingCommitResult.cs" />
     <Compile Include="Views\FullCommitView.xaml.cs">
       <DependentUpon>FullCommitView.xaml</DependentUpon>
     </Compile>

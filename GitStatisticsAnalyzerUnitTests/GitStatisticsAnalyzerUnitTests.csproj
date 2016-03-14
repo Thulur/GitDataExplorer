@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GitCommandTests.cs" />
     <Compile Include="FullCommitTests.cs" />
+    <Compile Include="DanglingCommitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitStatisticsAnalyzer\GitStatisticsAnalyzer.csproj">
