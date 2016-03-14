@@ -35,6 +35,7 @@
                     <RibbonButton Label="Full" IsEnabled="False"/>
                     <RibbonButton Label="Detail" IsEnabled="False"/>
                     <RibbonButton Label="Disable Id" IsEnabled="False"/>
+                    <RibbonButton Label="Dangling" Click="DanglingCommitButtonClick"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

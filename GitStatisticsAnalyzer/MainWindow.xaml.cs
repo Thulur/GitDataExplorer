@@ -70,5 +70,13 @@ namespace GitStatisticsAnalyzer
             var selectedSimpleCommit = ((DataGrid) sender).SelectedItem as SimpleCommitResult;
             new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
         }
+
+        private async void DanglingCommitButtonClick(object sender, RoutedEventArgs e)
+        {
+            var danglingCommand = await Task.Run(() => commandFactory.GetCommand<DanglingCommitResult>());
+            danglingCommand.Execute();
+
+            dataGrid.ItemsSource = danglingCommand.Result.Commits;
+        }
     }
 }

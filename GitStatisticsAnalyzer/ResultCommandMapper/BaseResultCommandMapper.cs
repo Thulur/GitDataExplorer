@@ -20,12 +20,14 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             commands.Add(typeof(LogResult), "log");
             commands.Add(typeof(StatusResult), "status");
             commands.Add(typeof(VersionResult), "--version");
+            commands.Add(typeof(DanglingCommitResult), "fsck");
 
             parameters.Add(typeof(ListSimpleCommitsResult), "--oneline");
             parameters.Add(typeof(FullCommitResult), "");
             parameters.Add(typeof(LogResult), "");
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");
+            parameters.Add(typeof(DanglingCommitResult), "--lost-found");
         }
 
         public string GetCommandName<ResultType>() where ResultType : IResult
