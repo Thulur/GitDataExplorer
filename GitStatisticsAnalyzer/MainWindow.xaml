@@ -30,12 +30,15 @@
                     <RibbonButton Label="Choose Repository" Click="SelectRepoButtonClick"/>
                     <RibbonButton Label="Clone Repository" IsEnabled="False"/>
                 </RibbonGroup>
-                <RibbonGroup Header="View">
+                <RibbonGroup Header="View - Type">
+                    <RibbonButton Label="Normal" Click="NormalCommitButtonClick"/>
+                    <RibbonButton Label="Dangling" Click="DanglingCommitButtonClick"/>
+                </RibbonGroup>
+                <RibbonGroup Header="View - Details">
                     <RibbonButton Label="Short" IsEnabled="False"/>
                     <RibbonButton Label="Full" IsEnabled="False"/>
                     <RibbonButton Label="Detail" IsEnabled="False"/>
                     <RibbonButton Label="Disable Id" IsEnabled="False"/>
-                    <RibbonButton Label="Dangling" Click="DanglingCommitButtonClick"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

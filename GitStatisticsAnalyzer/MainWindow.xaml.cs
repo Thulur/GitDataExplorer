@@ -57,10 +57,7 @@ namespace GitStatisticsAnalyzer
                         currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
                     }
 
-                    var oneLineCommand = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
-                    oneLineCommand.Execute();
-
-                    dataGrid.ItemsSource = oneLineCommand.Result.Commits;
+                    await ListNormalCommits();
                 }
             }
         }
@@ -77,6 +74,19 @@ namespace GitStatisticsAnalyzer
             danglingCommand.Execute();
 
             dataGrid.ItemsSource = danglingCommand.Result.Commits;
+        }
+
+        private async void NormalCommitButtonClick(object sender, RoutedEventArgs e)
+        {
+            await ListNormalCommits();
+        }
+
+        private async Task ListNormalCommits()
+        {
+            var oneLineCommand = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
+            oneLineCommand.Execute();
+
+            dataGrid.ItemsSource = oneLineCommand.Result.Commits;
         }
     }
 }
