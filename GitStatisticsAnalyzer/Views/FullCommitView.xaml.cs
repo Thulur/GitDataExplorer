@@ -39,6 +39,7 @@ namespace GitStatisticsAnalyzer.Views
             await Task.Run(() => command.Execute());
 
             var result = command.Result;
+            Title = result.Title + " (" + result.Id + ") ";
         }
     }
 }

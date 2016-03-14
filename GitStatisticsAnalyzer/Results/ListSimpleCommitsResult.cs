@@ -15,8 +15,7 @@ namespace GitStatisticsAnalyzer.Results
         {
             foreach (var line in lines)
             {
-                var tmpList = new List<string>();
-                tmpList.Add(line);
+                var tmpList = new List<string> {line};
 
                 var result = new SimpleCommitResult();
                 result.ParseResult(tmpList);

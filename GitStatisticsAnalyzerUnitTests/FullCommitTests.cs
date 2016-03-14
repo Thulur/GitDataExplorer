@@ -19,23 +19,18 @@ namespace GitStatisticsAnalyzerUnitTests
             var expectedMessage = "- add basic classes for the analyzer\n";
             expectedMessage += "- implement version command\n";
             expectedMessage += "- implement status command(currently only the branch is saved)\n";
-            expectedMessage += "- create log command\n";
+            expectedMessage += "- create log command";
 
             gitOutput.Add("commit 94a97da2a51ee4f1b7c13370d86f2b2928e654d4");
             gitOutput.Add("Author: Sebastian Koall <sebastian.koall@student.hpi.uni-potsdam.de>");
             gitOutput.Add("Date:   Sun Sep 27 18:19:19 2015 +0200");
-            gitOutput.Add("");
             gitOutput.Add("Init repository");
-            gitOutput.Add("");
             gitOutput.Add("- add basic classes for the analyzer");
             gitOutput.Add("- implement version command");
             gitOutput.Add("- implement status command(currently only the branch is saved)");
             gitOutput.Add("- create log command");
-            gitOutput.Add("");
             gitOutput.Add("diff --git path/to/some/file.txt");
             fullCommit.ParseResult(gitOutput);
-
-            
 
             Assert.AreEqual("94a97da2a51ee4f1b7c13370d86f2b2928e654d4", fullCommit.Id);
             Assert.AreEqual("Sebastian Koall", fullCommit.Author.Name);

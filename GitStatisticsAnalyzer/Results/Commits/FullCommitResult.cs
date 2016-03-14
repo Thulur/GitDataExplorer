@@ -52,9 +52,9 @@ namespace GitStatisticsAnalyzer.Results.Commits
 
         private void ParseTitleAndMessage(IList<string> lines)
         {
-            Title = lines[4];
+            Title = lines[3];
 
-            if (lines.Count > 5)
+            if (lines.Count > 4)
             {
                 ParseMessage(lines);
             }
@@ -62,7 +62,7 @@ namespace GitStatisticsAnalyzer.Results.Commits
 
         private void ParseMessage(IList<string> lines)
         {
-            var i = lines[5].Length > 0 ? 5 : 6;
+            var i = lines[4].Length > 0 ? 4 : 5;
 
             var messageSb = new StringBuilder();
 
