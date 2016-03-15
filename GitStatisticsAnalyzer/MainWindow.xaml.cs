@@ -70,8 +70,8 @@ namespace GitStatisticsAnalyzer
 
         private async void DanglingCommitButtonClick(object sender, RoutedEventArgs e)
         {
-            var danglingCommand = await Task.Run(() => commandFactory.GetCommand<DanglingCommitResult>());
-            danglingCommand.Execute();
+            var danglingCommand = commandFactory.GetCommand<DanglingCommitResult>();
+            await Task.Run(() => danglingCommand.Execute());
 
             dataGrid.ItemsSource = danglingCommand.Result.Commits;
         }
@@ -83,8 +83,8 @@ namespace GitStatisticsAnalyzer
 
         private async Task ListNormalCommits()
         {
-            var oneLineCommand = await Task.Run(() => commandFactory.GetCommand<ListSimpleCommitsResult>());
-            oneLineCommand.Execute();
+            var oneLineCommand = commandFactory.GetCommand<ListSimpleCommitsResult>();
+            await Task.Run(() => oneLineCommand.Execute());
 
             dataGrid.ItemsSource = oneLineCommand.Result.Commits;
         }
