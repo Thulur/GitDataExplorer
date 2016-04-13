@@ -8,6 +8,15 @@
         Title="CommitView" Height="600" Width="800" Loaded="_WindowLoaded">
     <Grid>
         <Ribbon x:Name="ribbon" VerticalAlignment="Top"/>
+        <Label x:Name="commitLabel" Content="Commit" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="authorLabel" Content="Author" HorizontalAlignment="Left" Margin="359,168,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="emailLabel" Content="Email" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="dateLabel" Content="Date" HorizontalAlignment="Left" Margin="359,139,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="67,142,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="411,143,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371"/>
+        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="67,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="411,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="1,199,0,0" VerticalAlignment="Top" Height="370" Width="791"/>
 
     </Grid>
 </Window>
