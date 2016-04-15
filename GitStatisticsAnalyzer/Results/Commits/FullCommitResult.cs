@@ -31,9 +31,21 @@ namespace GitStatisticsAnalyzer.Results.Commits
             }
 
             Id = lines[0].Replace("commit ", "");
-            Author = new Author(lines[1]);
-            ParseDate(lines[2]);
-            ParseTitleAndMessage(lines);
+
+            var authorLine = 0;
+            if (lines[1].StartsWith("Author"))
+            {
+                authorLine = 1;
+            }
+
+            if (lines[2].StartsWith("Author"))
+            {
+                authorLine = 2;
+            }
+
+            Author = new Author(lines[authorLine]);
+            ParseDate(lines[authorLine + 1]);
+            ParseTitleAndMessage(lines, authorLine + 2);
             ExecutionResult = ExecutionResult.Success;
         }
 
@@ -50,19 +62,19 @@ namespace GitStatisticsAnalyzer.Results.Commits
             Date = new DateTime(tmpDate.Year, tmpDate.Month, tmpDate.Day, hours, minutes, seconds);
         }
 
-        private void ParseTitleAndMessage(IList<string> lines)
+        private void ParseTitleAndMessage(IList<string> lines, int startLine)
         {
-            Title = lines[3];
+            Title = lines[startLine];
 
-            if (lines.Count > 4)
+            if (lines.Count > startLine + 1)
             {
-                ParseMessage(lines);
+                ParseMessage(lines, startLine);
             }
         }
 
-        private void ParseMessage(IList<string> lines)
+        private void ParseMessage(IList<string> lines, int startLine)
         {
-            var i = lines[4].Length > 0 ? 4 : 5;
+            var i = lines[startLine + 1].Length > 0 ? startLine + 1 : startLine + 2;
 
             var messageSb = new StringBuilder();
 
