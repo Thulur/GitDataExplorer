@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Author.cs" />
+    <Compile Include="Files\File.cs" />
     <Compile Include="Files\IFile.cs" />
     <Compile Include="Results\Commits\BareCommitResult.cs" />
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />

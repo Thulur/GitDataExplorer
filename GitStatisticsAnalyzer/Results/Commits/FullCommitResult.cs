@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using GitStatisticsAnalyzer.Data;
+using System.Linq;
+using GitStatisticsAnalyzer.Files;
 
 namespace GitStatisticsAnalyzer.Results.Commits
 {
@@ -9,7 +11,7 @@ namespace GitStatisticsAnalyzer.Results.Commits
     /// The class stores all available meta data of a commit.
     /// </summary>
     class FullCommitResult : ICommit
-    { 
+    {
         public ExecutionResult ExecutionResult { get; private set; }
 
         public string Id { get; private set; }
@@ -21,6 +23,8 @@ namespace GitStatisticsAnalyzer.Results.Commits
         public string Title { get; private set; }
 
         public string Message { get; private set; }
+
+        public IList<IFile> Files { get; private set; } 
 
         public void ParseResult(IList<string> lines)
         {
@@ -46,7 +50,21 @@ namespace GitStatisticsAnalyzer.Results.Commits
             Author = new Author(lines[authorLine]);
             ParseDate(lines[authorLine + 1]);
             ParseTitleAndMessage(lines, authorLine + 2);
+            ParseFiles(lines);
             ExecutionResult = ExecutionResult.Success;
+        }
+
+        private void ParseFiles(IList<string> lines)
+        {
+            var diffLines = lines.Where(l => l.StartsWith("diff --git")).ToList();
+            var files = new List<IFile>();
+
+            foreach (var diffLine in diffLines)
+            {
+                files.Add(new File(Id, diffLine.Split(' ').Last().Substring(2)));
+            }
+
+            Files = files;
         }
 
         private void ParseDate(string dateString)

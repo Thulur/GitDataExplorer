@@ -44,6 +44,7 @@ namespace GitStatisticsAnalyzer.Views
             authorTextBox.Text = result.Author.Name;
             emailTextBox.Text = result.Author.Email;
             dateTextBox.Text = result.Date.ToShortDateString();
+            fileDataGrid.ItemsSource = result.Files;
         }
     }
 }
