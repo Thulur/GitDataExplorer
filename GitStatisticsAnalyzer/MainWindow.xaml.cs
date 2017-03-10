@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,6 @@ using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
 using GitStatisticsAnalyzer.Results.Commits;
 using GitStatisticsAnalyzer.Views;
-
 
 namespace GitStatisticsAnalyzer
 {
@@ -65,6 +65,7 @@ namespace GitStatisticsAnalyzer
         private void SimpleCommitDoubleClicked(object sender, MouseButtonEventArgs e)
         {
             var selectedSimpleCommit = ((DataGrid) sender).SelectedItem as SimpleCommitResult;
+            Debug.Assert(selectedSimpleCommit != null);
             new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
         }
 
@@ -74,11 +75,29 @@ namespace GitStatisticsAnalyzer
             await Task.Run(() => danglingCommand.Execute());
 
             dataGrid.ItemsSource = danglingCommand.Result.Commits;
+            ReconfigureEventHandlers(BareCommitDoubleClicked);
+        }
+
+        private void BareCommitDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as BareCommitResult;
+            Debug.Assert(selectedSimpleCommit != null);
+            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
         }
 
         private async void NormalCommitButtonClick(object sender, RoutedEventArgs e)
         {
             await ListNormalCommits();
+
+            ReconfigureEventHandlers(SimpleCommitDoubleClicked);
+        }
+
+        private void ReconfigureEventHandlers(MouseButtonEventHandler mouseDoubleClicked)
+        {
+            dataGrid.MouseDoubleClick -= BareCommitDoubleClicked;
+            dataGrid.MouseDoubleClick -= SimpleCommitDoubleClicked;
+
+            dataGrid.MouseDoubleClick += mouseDoubleClicked;
         }
 
         private async Task ListNormalCommits()
