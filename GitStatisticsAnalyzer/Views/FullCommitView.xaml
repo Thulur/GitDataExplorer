@@ -13,11 +13,11 @@
         <Label x:Name="emailLabel" Content="Email" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top"/>
         <Label x:Name="dateLabel" Content="Date" HorizontalAlignment="Left" Margin="359,139,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="commitTextBox" HorizontalAlignment="Left" Height="23" Margin="67,142,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
-        <TextBox x:Name="dateTextBox" HorizontalAlignment="Left" Height="23" Margin="411,143,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371"/>
+        <TextBox x:Name="dateTextBox" Height="23" Margin="416,142,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
         <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="23" Margin="67,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
-        <TextBox x:Name="authorTextBox" HorizontalAlignment="Left" Height="23" Margin="411,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371"/>
-        <DataGrid x:Name="fileDataGrid" HorizontalAlignment="Left" Margin="1,199,0,0" VerticalAlignment="Top" Height="370" Width="791" ItemsSource="{Binding File}" 
-                  SelectionMode="Single" SelectionUnit ="FullRow" AutoGenerateColumns="False" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White">
+        <TextBox x:Name="authorTextBox" Height="23" Margin="416,170,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <DataGrid x:Name="fileDataGrid" Margin="1,199,0,0" ItemsSource="{Binding File}" 
+                  SelectionMode="Single" SelectionUnit ="FullRow" AutoGenerateColumns="False" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path}" Header="Files" Width="*"/>
             </DataGrid.Columns>
