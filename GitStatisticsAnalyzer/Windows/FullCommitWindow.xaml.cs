@@ -20,7 +20,7 @@ namespace GitStatisticsAnalyzer.Views
     /// <summary>
     /// Interaction logic for FullCommitView.xaml
     /// </summary>
-    public partial class FullCommitView : ICommitView
+    public partial class FullCommitView : ICommitWindow
     {
         public FullCommitView(CommandFactory commandFactory, string id)
         {
