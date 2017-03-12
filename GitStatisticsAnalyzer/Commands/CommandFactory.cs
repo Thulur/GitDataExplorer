@@ -1,11 +1,14 @@
-﻿using GitStatisticsAnalyzer.ResultCommandMapper;
+﻿using System;
+
+using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
-using System;
 
 namespace GitStatisticsAnalyzer.Commands
 {
     public class CommandFactory
     {
+        private readonly string workingDir;
+
         public CommandFactory(IResultCommandMapper resultCommandMapper, string workingDir)
         {
             this.workingDir = workingDir;
@@ -24,8 +27,6 @@ namespace GitStatisticsAnalyzer.Commands
             return newCommand;
         }
 
-        public IResultCommandMapper ResultCommandMapper { get; }
-
-        private readonly string workingDir;
+        public IResultCommandMapper ResultCommandMapper { get; set; }
     }
 }

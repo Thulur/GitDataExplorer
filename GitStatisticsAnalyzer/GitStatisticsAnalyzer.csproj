@@ -84,17 +84,18 @@
     <Compile Include="Data\Author.cs" />
     <Compile Include="Files\File.cs" />
     <Compile Include="Files\IFile.cs" />
+    <Compile Include="ResultCommandMapper\BranchResultCommandMapper.cs" />
     <Compile Include="Results\Commits\BareCommitResult.cs" />
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />
     <Compile Include="Results\Commits\FullCommitResult.cs" />
     <Compile Include="Results\DanglingCommitResult.cs" />
-    <Compile Include="Views\AuthorWindow.xaml.cs">
+    <Compile Include="Windows\AuthorWindow.xaml.cs">
       <DependentUpon>AuthorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FullCommitView.xaml.cs">
-      <DependentUpon>FullCommitView.xaml</DependentUpon>
+    <Compile Include="Windows\FullCommitWindow.xaml.cs">
+      <DependentUpon>FullCommitWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ICommitView.cs" />
+    <Compile Include="Windows\ICommitView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -110,11 +111,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AuthorWindow.xaml">
+    <Page Include="Windows\AuthorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FullCommitView.xaml">
+    <Page Include="Windows\FullCommitWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
