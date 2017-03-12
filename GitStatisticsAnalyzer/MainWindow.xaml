@@ -31,8 +31,8 @@
                     <RibbonButton Label="Clone Repository" IsEnabled="False"/>
                 </RibbonGroup>
                 <RibbonGroup Header="View - Type">
-                    <RibbonButton Label="Normal" Click="NormalCommitButtonClick"/>
-                    <RibbonButton Label="Dangling" Click="DanglingCommitButtonClick"/>
+                    <RibbonButton x:Name="simpleCommitButton" Label="Normal" Click="NormalCommitButtonClick" IsEnabled="False"/>
+                    <RibbonButton x:Name="danglingCommitButton" Label="Dangling" Click="DanglingCommitButtonClick" IsEnabled="False"/>
                 </RibbonGroup>
                 <RibbonGroup Header="View - Details">
                     <RibbonButton Label="Short" IsEnabled="False"/>

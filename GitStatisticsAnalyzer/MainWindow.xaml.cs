@@ -22,6 +22,9 @@ namespace GitStatisticsAnalyzer
         // git log --pretty=format: --name-only --diff-filter=A             All files that ever existed in the repository
         // git log --oneline -- <path/file>                                 Get all commits a file is part of
 
+        private CommandFactory commandFactory = null;
+        private readonly IResultCommandMapper resultCommandMapper = new BaseResultCommandMapper();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,33 +35,32 @@ namespace GitStatisticsAnalyzer
             Title += " (Git-Version: " + versionCommand.Result + ")";
         }
 
-        private CommandFactory commandFactory = null;
-        private readonly IResultCommandMapper resultCommandMapper = new BaseResultCommandMapper();
-
         private async void SelectRepoButtonClick(object sender, RoutedEventArgs e)
         {
             using (var dialog = new CommonOpenFileDialog())
             {
                 dialog.IsFolderPicker = true;
 
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (dialog.ShowDialog() != CommonFileDialogResult.Ok) return;
+
+                danglingCommitButton.IsEnabled = true;
+                simpleCommitButton.IsEnabled = true;
+
+                commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
+                var statusCommand = commandFactory.GetCommand<StatusResult>();
+                statusCommand.Execute();
+
+                if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
                 {
-                    commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
-                    var statusCommand = commandFactory.GetCommand<StatusResult>();
-                    statusCommand.Execute();
-
-                    if (statusCommand.Result.ExecutionResult == ExecutionResult.NoRepository)
-                    {
-                        commandFactory = null;
-                        MessageBox.Show("The selected file contains no git repository.", "Error!", MessageBoxButton.OK);
-                    }
-                    else
-                    {
-                        currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
-                    }
-
-                    await ListNormalCommits();
+                    commandFactory = null;
+                    MessageBox.Show("The selected file contains no git repository.", "Error!", MessageBoxButton.OK);
                 }
+                else
+                {
+                    currentBranch.Text = "Current branch: " + statusCommand.Result.CurrentBranch;
+                }
+
+                await ListNormalCommits();
             }
         }
 
