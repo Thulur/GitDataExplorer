@@ -45,7 +45,7 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             return typeof(GitCommand<ResultType>);
         }
 
-        private readonly Dictionary<Type, string> commands = null;
-        private readonly Dictionary<Type, string> parameters = null;
+        protected readonly Dictionary<Type, string> commands = null;
+        protected readonly Dictionary<Type, string> parameters = null;
     }
 }

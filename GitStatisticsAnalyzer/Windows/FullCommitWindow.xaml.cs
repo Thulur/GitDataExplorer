@@ -20,7 +20,7 @@ namespace GitStatisticsAnalyzer.Views
     /// <summary>
     /// Interaction logic for FullCommitView.xaml
     /// </summary>
-    public partial class FullCommitView : ICommitView
+    public partial class FullCommitView : ICommitWindow
     {
         public FullCommitView(CommandFactory commandFactory, string id)
         {
@@ -41,7 +41,7 @@ namespace GitStatisticsAnalyzer.Views
             var result = command.Result;
             Title = result.Title + " (" + result.Id + ") ";
             commitTextBox.Text = result.Id;
-            authorTextBox.Text = result.Author.Name;
+            authorTextBox.Text = result.Author.ToString();
             emailTextBox.Text = result.Author.Email;
             dateTextBox.Text = result.Date.ToShortDateString();
             fileDataGrid.ItemsSource = result.Files;
