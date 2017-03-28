@@ -11,5 +11,7 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
         string GetCommandParameters<ResultType>() where ResultType : IResult;
 
         Type GetCommandType<ResultType>() where ResultType : class, IResult, new();
+
+        string GetOptionalParameter(OptionalParameter optionalParameter);
     }
 }

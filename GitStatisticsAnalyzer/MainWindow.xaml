@@ -25,20 +25,28 @@
             </DataGrid.Columns>
         </DataGrid>
         <Ribbon x:Name="ribbon" VerticalAlignment="Top" Height="138" Background="White">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed" />
+            </Ribbon.ApplicationMenu>
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Repository">
-                <RibbonGroup Header="Select" BorderBrush="White">
+                <RibbonGroup Header="Select">
                     <RibbonButton Label="Choose Repository" Click="SelectRepoButtonClick"/>
                     <RibbonButton Label="Clone Repository" IsEnabled="False"/>
                 </RibbonGroup>
                 <RibbonGroup Header="View - Type">
                     <RibbonButton x:Name="simpleCommitButton" Label="Normal" Click="NormalCommitButtonClick" IsEnabled="False"/>
                     <RibbonButton x:Name="danglingCommitButton" Label="Dangling" Click="DanglingCommitButtonClick" IsEnabled="False"/>
+                    <RibbonButton x:Name="CommitDiffButton" Label="Commit Diff" Click="CommitDiffButtonClick" IsEnabled="False"/>
                 </RibbonGroup>
                 <RibbonGroup Header="View - Details">
                     <RibbonButton Label="Short" IsEnabled="False"/>
                     <RibbonButton Label="Full" IsEnabled="False"/>
                     <RibbonButton Label="Detail" IsEnabled="False"/>
                     <RibbonButton Label="Disable Id" IsEnabled="False"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Statistics">
+                    <RibbonButton x:Name="authorCommitsButton" Label="Commits per Author" Click="AuthorCommitsButtonClick" IsEnabled="False"/>
+                    <RibbonButton x:Name="linesCommitButton" Label="Lines per Commit" IsEnabled="False"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

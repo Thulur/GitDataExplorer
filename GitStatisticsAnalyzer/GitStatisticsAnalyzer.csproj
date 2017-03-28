@@ -49,22 +49,6 @@
       <HintPath>packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -90,7 +74,10 @@
     <Compile Include="Data\Author.cs" />
     <Compile Include="Files\File.cs" />
     <Compile Include="Files\IFile.cs" />
-    <Compile Include="ResultCommandMapper\BranchResultCommandMapper.cs" />
+    <Compile Include="Graphs\AuthorCommitGraphWindow.xaml.cs">
+      <DependentUpon>AuthorCommitGraphWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Results\Commits\AuthorCommitsResult.cs" />
     <Compile Include="Results\Commits\BareCommitResult.cs" />
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />
     <Compile Include="Results\Commits\FullCommitResult.cs" />
@@ -101,7 +88,12 @@
     <Compile Include="Windows\FullCommitWindow.xaml.cs">
       <DependentUpon>FullCommitWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ICommitView.cs" />
+    <Compile Include="Windows\ICommandWindow.cs" />
+    <Compile Include="Windows\ICommitWindow.cs" />
+    <Page Include="Graphs\AuthorCommitGraphWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

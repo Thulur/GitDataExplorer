@@ -11,23 +11,30 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
     class BaseResultCommandMapper : IResultCommandMapper
     {
         public BaseResultCommandMapper()
-        { 
-            commands = new Dictionary<Type, string>();
-            parameters = new Dictionary<Type, string>();
-
+        {
+            // Commit dependent commands
             commands.Add(typeof(ListSimpleCommitsResult), "log");
             commands.Add(typeof(FullCommitResult), "show");
             commands.Add(typeof(LogResult), "log");
-            commands.Add(typeof(StatusResult), "status");
-            commands.Add(typeof(VersionResult), "--version");
-            commands.Add(typeof(DanglingCommitResult), "fsck");
-
+            
             parameters.Add(typeof(ListSimpleCommitsResult), "--oneline");
             parameters.Add(typeof(FullCommitResult), "");
             parameters.Add(typeof(LogResult), "");
+
+            // Commit independent commands
+            commands.Add(typeof(StatusResult), "status");
+            commands.Add(typeof(VersionResult), "--version");
+            commands.Add(typeof(DanglingCommitResult), "fsck");
+            commands.Add(typeof(AuthorCommitsResult), "shortlog");
+
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");
             parameters.Add(typeof(DanglingCommitResult), "--lost-found");
+            parameters.Add(typeof(AuthorCommitsResult), "-s -n --all");
+
+            // Optional parameters
+            optionalParameters.Add(OptionalParameter.NONE, "");
+            optionalParameters.Add(OptionalParameter.EXCLUDE_MERGES, "--no--merges");
         }
 
         public string GetCommandName<ResultType>() where ResultType : IResult
@@ -45,7 +52,19 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             return typeof(GitCommand<ResultType>);
         }
 
-        protected readonly Dictionary<Type, string> commands = null;
-        protected readonly Dictionary<Type, string> parameters = null;
+        public string GetOptionalParameter(OptionalParameter optionalParameter)
+        {
+            return optionalParameters[optionalParameter];
+        }
+
+        protected readonly Dictionary<Type, string> commands = new Dictionary<Type, string>();
+        protected readonly Dictionary<Type, string> parameters = new Dictionary<Type, string>();
+        protected readonly Dictionary<OptionalParameter, string> optionalParameters = new Dictionary<OptionalParameter, string>();
+    }
+
+    public enum OptionalParameter
+    {
+        NONE,
+        EXCLUDE_MERGES
     }
 }

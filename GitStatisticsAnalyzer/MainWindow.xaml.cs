@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.Graphs;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
 using GitStatisticsAnalyzer.Results.Commits;
@@ -45,6 +46,8 @@ namespace GitStatisticsAnalyzer
 
                 danglingCommitButton.IsEnabled = true;
                 simpleCommitButton.IsEnabled = true;
+                authorCommitsButton.IsEnabled = true;
+                linesCommitButton.IsEnabled = true;
 
                 commandFactory = new CommandFactory(resultCommandMapper, dialog.FileName);
                 var statusCommand = commandFactory.GetCommand<StatusResult>();
@@ -64,13 +67,11 @@ namespace GitStatisticsAnalyzer
             }
         }
 
-        private void SimpleCommitDoubleClicked(object sender, MouseButtonEventArgs e)
-        {
-            var selectedSimpleCommit = ((DataGrid) sender).SelectedItem as SimpleCommitResult;
-            Debug.Assert(selectedSimpleCommit != null);
-            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
-        }
-
+        /// <summary>
+        /// After calling this event all dangling commits inside the local repository are listed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void DanglingCommitButtonClick(object sender, RoutedEventArgs e)
         {
             var danglingCommand = commandFactory.GetCommand<DanglingCommitResult>();
@@ -80,18 +81,42 @@ namespace GitStatisticsAnalyzer
             ReconfigureEventHandlers(BareCommitDoubleClicked);
         }
 
-        private void BareCommitDoubleClicked(object sender, MouseButtonEventArgs e)
-        {
-            var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as BareCommitResult;
-            Debug.Assert(selectedSimpleCommit != null);
-            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
-        }
-
         private async void NormalCommitButtonClick(object sender, RoutedEventArgs e)
         {
             await ListNormalCommits();
 
             ReconfigureEventHandlers(SimpleCommitDoubleClicked);
+        }
+
+        private async void CommitDiffButtonClick(object sender, RoutedEventArgs e)
+        {
+            await ListNormalCommits();
+
+            ReconfigureEventHandlers(SimpleCommitDoubleClicked);
+        }
+
+        /// <summary>
+        /// This event is called, if the DataGrid shows a list of SimpleCommitResults.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SimpleCommitDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as SimpleCommitResult;
+            Debug.Assert(selectedSimpleCommit != null);
+            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
+        }
+
+        /// <summary>
+        /// This event is called, if the DataGrid shows a list of BareCommitResult.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BareCommitDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as BareCommitResult;
+            Debug.Assert(selectedSimpleCommit != null);
+            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
         }
 
         private void ReconfigureEventHandlers(MouseButtonEventHandler mouseDoubleClicked)
@@ -102,12 +127,22 @@ namespace GitStatisticsAnalyzer
             dataGrid.MouseDoubleClick += mouseDoubleClicked;
         }
 
+        /// <summary>
+        /// Asynchronously retrieves the list of all normal commits.
+        /// </summary>
+        /// <returns></returns>
         private async Task ListNormalCommits()
         {
             var oneLineCommand = commandFactory.GetCommand<ListSimpleCommitsResult>();
             await Task.Run(() => oneLineCommand.Execute());
 
             dataGrid.ItemsSource = oneLineCommand.Result.Commits;
+        }
+
+        private void AuthorCommitsButtonClick(object sender, RoutedEventArgs e)
+        {
+            var window = new AuthorCommitGraphWindow { CommandFactory = commandFactory };
+            window.ShowDialog();
         }
     }
 }

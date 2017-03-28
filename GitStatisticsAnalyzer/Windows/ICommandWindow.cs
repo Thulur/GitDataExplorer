@@ -1,11 +1,9 @@
 ﻿using GitStatisticsAnalyzer.Commands;
 
-namespace GitStatisticsAnalyzer.Views
+namespace GitStatisticsAnalyzer.Windows
 {
-    public interface ICommitWindow
+    interface ICommandWindow
     {
         CommandFactory CommandFactory { get; }
-
-        string Id { get; }
     }
 }
