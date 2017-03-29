@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitStatisticsAnalyzer.Windows"
         mc:Ignorable="d"
-        Title="AuthorWindow" Height="482.955" Width="825.773">
+        Title="AuthorWindow" Height="482.955" Width="825.773" Loaded="WindowLoaded">
     <Grid>
         <Ribbon x:Name="ribbon" VerticalAlignment="Top"  Background="White" Height="142">
             <Ribbon.ApplicationMenu>
@@ -16,6 +16,17 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
+        <DataGrid x:Name="dataGrid" Margin="0,142,0,0" ItemsSource="{Binding SimpleCommitResult}" 
+            SelectionMode="Single" SelectionUnit ="FullRow"
+            MouseDoubleClick="SimpleCommitDoubleClicked" 
+            RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False" 
+            BorderBrush="White" Background="#FFFFFDFD" Foreground="Black" 
+            HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
+                <DataGridTextColumn Binding="{Binding Message}" Header="Message" Width="*   "/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

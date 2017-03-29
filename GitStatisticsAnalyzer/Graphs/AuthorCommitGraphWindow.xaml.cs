@@ -86,6 +86,7 @@ namespace GitStatisticsAnalyzer.Graphs
             var authorWindow = new AuthorWindow
             {
                 AuthorName = author,
+                CommandFactory = CommandFactory,
                 Title = "Author: " + author
             };
             authorWindow.Show();
