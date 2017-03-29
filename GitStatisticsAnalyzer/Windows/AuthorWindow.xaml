@@ -12,7 +12,8 @@
                 <RibbonApplicationMenu Visibility="Collapsed" />
             </Ribbon.ApplicationMenu>
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="">
-                <RibbonGroup Header="">
+                <RibbonGroup Header="Filter">
+                    <RibbonCheckBox x:Name="excludeMergesCheckBox" Label="Exclude Merges" Checked="ExcludeMergesCheckBoxChecked" Unchecked="ExcludeMergesCheckBoxUnchecked"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

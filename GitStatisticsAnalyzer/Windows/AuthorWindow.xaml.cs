@@ -5,8 +5,10 @@ using System.Windows.Controls;
 
 using GitStatisticsAnalyzer.Data;
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
 using GitStatisticsAnalyzer.Results.Commits;
+using System;
 
 namespace GitStatisticsAnalyzer.Windows
 {
@@ -15,6 +17,7 @@ namespace GitStatisticsAnalyzer.Windows
     /// </summary>
     public partial class AuthorWindow : Window, ICommandWindow
     {
+        OptionalParameter optionalParameters = OptionalParameter.NONE;
         private Author author;
 
         public AuthorWindow()
@@ -46,7 +49,12 @@ namespace GitStatisticsAnalyzer.Windows
 
         private void AuthorNameChanged()
         {
-            var command = CommandFactory.GetCommand<ListSimpleCommitsResult>($"--author=\"{Author}\"");
+            UpdateDataGrid();
+        }
+
+        private void UpdateDataGrid()
+        {
+            var command = CommandFactory.GetCommand<ListSimpleCommitsResult>(optionalParameters, $"--author=\"{Author}\"");
             command.Execute();
 
             dataGrid.ItemsSource = command.Result.Commits;
@@ -62,6 +70,18 @@ namespace GitStatisticsAnalyzer.Windows
             var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as SimpleCommitResult;
             Debug.Assert(selectedSimpleCommit != null);
             new FullCommitView(CommandFactory, selectedSimpleCommit?.Id).Show();
+        }
+
+        private void ExcludeMergesCheckBoxChecked(object sender, RoutedEventArgs e)
+        {
+            optionalParameters |= OptionalParameter.EXCLUDE_MERGES;
+            UpdateDataGrid();
+        }
+
+        private void ExcludeMergesCheckBoxUnchecked(object sender, RoutedEventArgs e)
+        {
+            optionalParameters &= ~OptionalParameter.EXCLUDE_MERGES;
+            UpdateDataGrid();
         }
     }
 }

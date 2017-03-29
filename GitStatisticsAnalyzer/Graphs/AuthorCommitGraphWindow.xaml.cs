@@ -72,6 +72,8 @@ namespace GitStatisticsAnalyzer.Graphs
             cartesianChart.AxisX.Add(new Axis
             {
                 Title = "Author",
+                IsMerged = true,
+                ShowLabels = false,
                 Labels = authors.Select(a => a.Name).ToArray()
             });
             cartesianChart.Series = new SeriesCollection
@@ -79,6 +81,7 @@ namespace GitStatisticsAnalyzer.Graphs
                 new ColumnSeries
                 {
                     Title = "",
+                    StrokeThickness = 0,
                     Values = new ChartValues<int>(command.Result.AuthorCommits.Values.ToArray())
                 }
             };
