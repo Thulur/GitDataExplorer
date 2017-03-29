@@ -39,6 +39,7 @@ namespace GitStatisticsAnalyzer.Commands
             info.FileName = "git.exe";
             info.Arguments = commandName;
             info.WorkingDirectory = workingDir;
+            info.StandardOutputEncoding = System.Text.Encoding.UTF8;
 
             Result = new T();
         }
