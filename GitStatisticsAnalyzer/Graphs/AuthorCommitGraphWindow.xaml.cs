@@ -4,10 +4,9 @@ using System.Linq;
 using System.Windows;
 
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results.Commits;
 using GitStatisticsAnalyzer.Windows;
-using GitStatisticsAnalyzer.ResultCommandMapper;
-using System;
 
 namespace GitStatisticsAnalyzer.Graphs
 {
@@ -79,6 +78,17 @@ namespace GitStatisticsAnalyzer.Graphs
                     Values = new ChartValues<int>(command.Result.AuthorCommits.Values.ToArray())
                 }
             };
+        }
+
+        private void CartesianChartDataClick(object sender, ChartPoint chartPoint)
+        {
+            var author = cartesianChart.AxisX[0].Labels[chartPoint.Key];
+            var authorWindow = new AuthorWindow
+            {
+                AuthorName = author,
+                Title = "Author: " + author
+            };
+            authorWindow.Show();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using GitStatisticsAnalyzer.Windows;
 
-namespace GitStatisticsAnalyzer.Views
+namespace GitStatisticsAnalyzer.Windows
 {
     interface ICommitWindow : ICommandWindow
     { 

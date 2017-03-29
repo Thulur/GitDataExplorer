@@ -4,7 +4,7 @@ using System.Windows;
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.Results.Commits;
 
-namespace GitStatisticsAnalyzer.Views
+namespace GitStatisticsAnalyzer.Windows
 {
     /// <summary>
     /// Interaction logic for FullCommitView.xaml

@@ -10,7 +10,7 @@ using GitStatisticsAnalyzer.Graphs;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
 using GitStatisticsAnalyzer.Results.Commits;
-using GitStatisticsAnalyzer.Views;
+using GitStatisticsAnalyzer.Windows;
 
 namespace GitStatisticsAnalyzer
 {
@@ -142,7 +142,7 @@ namespace GitStatisticsAnalyzer
         private void AuthorCommitsButtonClick(object sender, RoutedEventArgs e)
         {
             var window = new AuthorCommitGraphWindow { CommandFactory = commandFactory };
-            window.ShowDialog();
+            window.Show();
         }
     }
 }

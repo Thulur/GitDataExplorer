@@ -19,6 +19,6 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <lvc:CartesianChart x:Name="cartesianChart" Margin="15,147,10,10"/>
+        <lvc:CartesianChart x:Name="cartesianChart" Margin="15,147,10,10" DataClick="CartesianChartDataClick"/>
     </Grid>
 </Window>
