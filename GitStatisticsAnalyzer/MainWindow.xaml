@@ -36,7 +36,7 @@
                 <RibbonGroup Header="View - Type">
                     <RibbonButton x:Name="simpleCommitButton" Label="Normal" Click="NormalCommitButtonClick" IsEnabled="False"/>
                     <RibbonButton x:Name="danglingCommitButton" Label="Dangling" Click="DanglingCommitButtonClick" IsEnabled="False"/>
-                    <RibbonButton x:Name="CommitDiffButton" Label="Commit Diff" Click="CommitDiffButtonClick" IsEnabled="False"/>
+                    <RibbonButton x:Name="commitDiffButton" Label="Commit Diff" Click="CommitDiffButtonClick" IsEnabled="False"/>
                 </RibbonGroup>
                 <RibbonGroup Header="View - Details">
                     <RibbonButton Label="Short" IsEnabled="False"/>

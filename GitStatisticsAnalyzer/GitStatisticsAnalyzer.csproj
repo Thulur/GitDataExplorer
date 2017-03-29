@@ -72,6 +72,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Author.cs" />
+    <Compile Include="Dialogs\BranchesDialog.xaml.cs">
+      <DependentUpon>BranchesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\File.cs" />
     <Compile Include="Files\IFile.cs" />
     <Compile Include="Graphs\AuthorCommitGraphWindow.xaml.cs">
@@ -90,6 +93,10 @@
     </Compile>
     <Compile Include="Windows\ICommandWindow.cs" />
     <Compile Include="Windows\ICommitWindow.cs" />
+    <Page Include="Dialogs\BranchesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Graphs\AuthorCommitGraphWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

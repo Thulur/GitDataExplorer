@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.Dialogs;
 using GitStatisticsAnalyzer.Graphs;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results;
@@ -46,6 +47,7 @@ namespace GitStatisticsAnalyzer
 
                 danglingCommitButton.IsEnabled = true;
                 simpleCommitButton.IsEnabled = true;
+                commitDiffButton.IsEnabled = true;
                 authorCommitsButton.IsEnabled = true;
                 linesCommitButton.IsEnabled = true;
 
@@ -90,9 +92,13 @@ namespace GitStatisticsAnalyzer
 
         private async void CommitDiffButtonClick(object sender, RoutedEventArgs e)
         {
-            await ListNormalCommits();
+            var dialog = new BranchesDialog();
+            if (dialog.ShowDialog() ?? false)
+            {
+                await ListNormalCommits($"{dialog.FirstBranch}..{dialog.SecondBranch}");
 
-            ReconfigureEventHandlers(SimpleCommitDoubleClicked);
+                ReconfigureEventHandlers(SimpleCommitDoubleClicked);
+            }
         }
 
         /// <summary>
@@ -131,9 +137,9 @@ namespace GitStatisticsAnalyzer
         /// Asynchronously retrieves the list of all normal commits.
         /// </summary>
         /// <returns></returns>
-        private async Task ListNormalCommits()
+        private async Task ListNormalCommits(string customParameters = "")
         {
-            var oneLineCommand = commandFactory.GetCommand<ListSimpleCommitsResult>();
+            var oneLineCommand = commandFactory.GetCommand<ListSimpleCommitsResult>(customParameters);
             await Task.Run(() => oneLineCommand.Execute());
 
             dataGrid.ItemsSource = oneLineCommand.Result.Commits;
