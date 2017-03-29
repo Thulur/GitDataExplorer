@@ -14,7 +14,8 @@
             </Ribbon.ApplicationMenu>
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Filter">
                 <RibbonGroup Header="Filter">
-                    <RibbonCheckBox x:Name="excludeMergesCheckBox" Label="Exclude Merges" Checked="ExcludeMergesCheckBoxChecked" Unchecked="ExcludeMergesCheckBoxChecked"/>
+                    <RibbonCheckBox x:Name="excludeMergesCheckBox" Label="Exclude Merges" Checked="ExcludeMergesCheckBoxChecked" Unchecked="ExcludeMergesCheckBoxUnchecked"/>
+                    <RibbonCheckBox x:Name="allBranchesCheckBox" Label="All Branches" Checked="AllBranchesCheckBoxChecked" Unchecked="AllBranchesCheckBoxUnchecked"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

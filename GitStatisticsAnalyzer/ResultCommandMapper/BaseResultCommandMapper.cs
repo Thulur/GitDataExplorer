@@ -30,11 +30,12 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");
             parameters.Add(typeof(DanglingCommitResult), "--lost-found");
-            parameters.Add(typeof(AuthorCommitsResult), "-s -n --all");
+            parameters.Add(typeof(AuthorCommitsResult), "-s -n");
 
             // Optional parameters
             optionalParameters.Add(OptionalParameter.NONE, "");
             optionalParameters.Add(OptionalParameter.EXCLUDE_MERGES, "--no-merges");
+            optionalParameters.Add(OptionalParameter.ALL, "--all");
         }
 
         public string GetCommandName<ResultType>() where ResultType : IResult
@@ -62,9 +63,14 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
         protected readonly Dictionary<OptionalParameter, string> optionalParameters = new Dictionary<OptionalParameter, string>();
     }
 
+    /// <summary>
+    /// Optional parameters are used for commands which alter the number of outputed commits, which remain their formatting.
+    /// </summary>
+    [Flags]
     public enum OptionalParameter
     {
-        NONE,
-        EXCLUDE_MERGES
+        NONE = 0,
+        EXCLUDE_MERGES = 1,
+        ALL = 2
     }
 }

@@ -16,6 +16,8 @@ namespace GitStatisticsAnalyzer.Graphs
     /// </summary>
     public partial class AuthorCommitGraphWindow : Window, ICommandWindow
     {
+        OptionalParameter optionalParameters = OptionalParameter.NONE;
+
         public AuthorCommitGraphWindow()
         {
             InitializeComponent();
@@ -31,36 +33,50 @@ namespace GitStatisticsAnalyzer.Graphs
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            var command = CommandFactory.GetCommand<AuthorCommitsResult>();
-
-            command.Execute();
-            UpdateChartValues(command.Result.AuthorCommits.Keys.ToArray(), command.Result.AuthorCommits.Values.ToArray());
+            UpdateChartValues();
         }
 
         private void ExcludeMergesCheckBoxChecked(object sender, RoutedEventArgs e)
         {
-            var optionalParameter = excludeMergesCheckBox.IsChecked ?? false ? OptionalParameter.EXCLUDE_MERGES : OptionalParameter.NONE;
-            var command = CommandFactory.GetCommand<AuthorCommitsResult>(optionalParameter);
-
-            command.Execute();
-            UpdateChartValues(command.Result.AuthorCommits.Keys.ToArray(), command.Result.AuthorCommits.Values.ToArray());
+            optionalParameters |= OptionalParameter.EXCLUDE_MERGES;
+            UpdateChartValues();
         }
 
-        private void UpdateChartValues(string[] names, int[] numberCommits)
+        private void ExcludeMergesCheckBoxUnchecked(object sender, RoutedEventArgs e)
         {
+            optionalParameters &= ~OptionalParameter.EXCLUDE_MERGES;
+            UpdateChartValues();
+        }
+
+        private void AllBranchesCheckBoxChecked(object sender, RoutedEventArgs e)
+        {
+            optionalParameters |= OptionalParameter.ALL;
+            UpdateChartValues();
+        }
+
+        private void AllBranchesCheckBoxUnchecked(object sender, RoutedEventArgs e)
+        {
+            optionalParameters &= ~OptionalParameter.ALL;
+            UpdateChartValues();
+        }
+
+        private void UpdateChartValues()
+        {
+            var command = CommandFactory.GetCommand<AuthorCommitsResult>(optionalParameters);
+            command.Execute();
+
             cartesianChart.AxisX.Clear();
             cartesianChart.AxisX.Add(new Axis
             {
                 Title = "Author",
-                Labels = names
+                Labels = command.Result.AuthorCommits.Keys.ToArray()
             });
-
             cartesianChart.Series = new SeriesCollection
             {
                 new ColumnSeries
                 {
                     Title = "",
-                    Values = new ChartValues<int>(numberCommits)
+                    Values = new ChartValues<int>(command.Result.AuthorCommits.Values.ToArray())
                 }
             };
         }
