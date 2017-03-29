@@ -34,7 +34,7 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
 
             // Optional parameters
             optionalParameters.Add(OptionalParameter.NONE, "");
-            optionalParameters.Add(OptionalParameter.EXCLUDE_MERGES, "--no--merges");
+            optionalParameters.Add(OptionalParameter.EXCLUDE_MERGES, "--no-merges");
         }
 
         public string GetCommandName<ResultType>() where ResultType : IResult

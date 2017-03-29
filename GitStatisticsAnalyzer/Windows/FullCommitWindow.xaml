@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CommitView" Height="600" Width="800" Loaded="_WindowLoaded">
     <Grid>
-        <Ribbon x:Name="ribbon" VerticalAlignment="Top">
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top" Background="White">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" />
             </Ribbon.ApplicationMenu>
