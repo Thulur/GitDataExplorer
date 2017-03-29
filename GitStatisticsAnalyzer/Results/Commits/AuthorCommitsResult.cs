@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using GitStatisticsAnalyzer.Data;
+
 namespace GitStatisticsAnalyzer.Results.Commits
 {
     class AuthorCommitsResult : IResult
@@ -13,10 +15,10 @@ namespace GitStatisticsAnalyzer.Results.Commits
             {
                 var authorCommits = line.Split(new char[] { '\t' }, 2);
 
-                AuthorCommits.Add(authorCommits[1], Convert.ToInt32(authorCommits[0]));
+                AuthorCommits.Add(new Author(authorCommits[1]), Convert.ToInt32(authorCommits[0]));
             }
         }
 
-        public Dictionary<string, int> AuthorCommits { get; } = new Dictionary<string, int>();
+        public Dictionary<Author, int> AuthorCommits { get; } = new Dictionary<Author, int>();
     }
 }

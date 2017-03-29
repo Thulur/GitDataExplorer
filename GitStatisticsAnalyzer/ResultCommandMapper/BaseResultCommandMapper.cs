@@ -30,7 +30,7 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             parameters.Add(typeof(StatusResult), "");
             parameters.Add(typeof(VersionResult), "");
             parameters.Add(typeof(DanglingCommitResult), "--lost-found");
-            parameters.Add(typeof(AuthorCommitsResult), "-s -n");
+            parameters.Add(typeof(AuthorCommitsResult), "-se -n");
 
             // Optional parameters
             optionalParameters.Add(OptionalParameter.NONE, "");

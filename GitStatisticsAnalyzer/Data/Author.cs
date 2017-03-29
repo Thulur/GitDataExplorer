@@ -1,6 +1,6 @@
 ﻿namespace GitStatisticsAnalyzer.Data
 {
-    class Author
+    public class Author
     {
         public Author(string authorData)
         {
@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return Name;
+            return $"{Name} <{Email}>";
         }
     }
 }

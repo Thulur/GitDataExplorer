@@ -1,12 +1,12 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 
+using GitStatisticsAnalyzer.Data;
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.Results;
-
 using GitStatisticsAnalyzer.Results.Commits;
-using System.Diagnostics;
 
 namespace GitStatisticsAnalyzer.Windows
 {
@@ -15,7 +15,7 @@ namespace GitStatisticsAnalyzer.Windows
     /// </summary>
     public partial class AuthorWindow : Window, ICommandWindow
     {
-        private string authorName;
+        private Author author;
 
         public AuthorWindow()
         {
@@ -24,15 +24,15 @@ namespace GitStatisticsAnalyzer.Windows
 
         public CommandFactory CommandFactory { get; set; }
 
-        public string AuthorName
+        public Author Author
         {
             get
             {
-                return authorName;
+                return author;
             }
             set
             {
-                authorName = value;
+                author = value;
 
                 if (CommandFactory == null) return;
                 AuthorNameChanged();
@@ -46,7 +46,7 @@ namespace GitStatisticsAnalyzer.Windows
 
         private void AuthorNameChanged()
         {
-            var command = CommandFactory.GetCommand<ListSimpleCommitsResult>($"--author=\"{AuthorName}\"");
+            var command = CommandFactory.GetCommand<ListSimpleCommitsResult>($"--author=\"{Author}\"");
             command.Execute();
 
             dataGrid.ItemsSource = command.Result.Commits;

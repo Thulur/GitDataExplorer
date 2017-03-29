@@ -1,9 +1,11 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
 using GitStatisticsAnalyzer.Commands;
+using GitStatisticsAnalyzer.Data;
 using GitStatisticsAnalyzer.ResultCommandMapper;
 using GitStatisticsAnalyzer.Results.Commits;
 using GitStatisticsAnalyzer.Windows;
@@ -16,6 +18,7 @@ namespace GitStatisticsAnalyzer.Graphs
     public partial class AuthorCommitGraphWindow : Window, ICommandWindow
     {
         OptionalParameter optionalParameters = OptionalParameter.NONE;
+        Author[] authors;
 
         public AuthorCommitGraphWindow()
         {
@@ -63,12 +66,13 @@ namespace GitStatisticsAnalyzer.Graphs
         {
             var command = CommandFactory.GetCommand<AuthorCommitsResult>(optionalParameters);
             command.Execute();
+            authors = command.Result.AuthorCommits.Keys.ToArray();
 
             cartesianChart.AxisX.Clear();
             cartesianChart.AxisX.Add(new Axis
             {
                 Title = "Author",
-                Labels = command.Result.AuthorCommits.Keys.ToArray()
+                Labels = authors.Select(a => a.Name).ToArray()
             });
             cartesianChart.Series = new SeriesCollection
             {
@@ -82,10 +86,10 @@ namespace GitStatisticsAnalyzer.Graphs
 
         private void CartesianChartDataClick(object sender, ChartPoint chartPoint)
         {
-            var author = cartesianChart.AxisX[0].Labels[chartPoint.Key];
+            var author = authors[chartPoint.Key];
             var authorWindow = new AuthorWindow
             {
-                AuthorName = author,
+                Author = author,
                 CommandFactory = CommandFactory,
                 Title = "Author: " + author
             };
