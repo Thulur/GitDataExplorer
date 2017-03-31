@@ -109,8 +109,10 @@ namespace GitStatisticsAnalyzer
         private void SimpleCommitDoubleClicked(object sender, MouseButtonEventArgs e)
         {
             var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as SimpleCommitResult;
-            Debug.Assert(selectedSimpleCommit != null);
-            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
+
+            if (selectedSimpleCommit == null) return;
+
+            new FullCommitWindow(commandFactory, selectedSimpleCommit?.Id).Show();
         }
 
         /// <summary>
@@ -122,7 +124,7 @@ namespace GitStatisticsAnalyzer
         {
             var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as BareCommitResult;
             Debug.Assert(selectedSimpleCommit != null);
-            new FullCommitView(commandFactory, selectedSimpleCommit?.Id).Show();
+            new FullCommitWindow(commandFactory, selectedSimpleCommit?.Id).Show();
         }
 
         private void ReconfigureEventHandlers(MouseButtonEventHandler mouseDoubleClicked)

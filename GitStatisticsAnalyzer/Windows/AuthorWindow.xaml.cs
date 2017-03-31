@@ -20,12 +20,15 @@ namespace GitStatisticsAnalyzer.Windows
         OptionalParameter optionalParameters = OptionalParameter.NONE;
         private Author author;
 
-        public AuthorWindow()
+        public AuthorWindow(CommandFactory commandFactory, Author author)
         {
             InitializeComponent();
+
+            CommandFactory = commandFactory;
+            Author = author;
         }
 
-        public CommandFactory CommandFactory { get; set; }
+        public CommandFactory CommandFactory { get; private set; }
 
         public Author Author
         {
@@ -33,30 +36,24 @@ namespace GitStatisticsAnalyzer.Windows
             {
                 return author;
             }
-            set
+            private set
             {
                 author = value;
-
-                if (CommandFactory == null) return;
-                AuthorNameChanged();
+                UpdateDataGrid();
             }
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            AuthorNameChanged();
-        }
-
-        private void AuthorNameChanged()
         {
             UpdateDataGrid();
         }
 
         private void UpdateDataGrid()
         {
+            if (CommandFactory == null) return;
+
             var command = CommandFactory.GetCommand<ListSimpleCommitsResult>(optionalParameters, $"--author=\"{Author}\"");
             command.Execute();
-
             dataGrid.ItemsSource = command.Result.Commits;
         }
 
@@ -69,7 +66,7 @@ namespace GitStatisticsAnalyzer.Windows
         {
             var selectedSimpleCommit = ((DataGrid)sender).SelectedItem as SimpleCommitResult;
             Debug.Assert(selectedSimpleCommit != null);
-            new FullCommitView(CommandFactory, selectedSimpleCommit?.Id).Show();
+            new FullCommitWindow(CommandFactory, selectedSimpleCommit?.Id).Show();
         }
 
         private void ExcludeMergesCheckBoxChecked(object sender, RoutedEventArgs e)

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.5.0, Culture=neutral, PublicKeyToken=c5935629d38af058, processorArchitecture=MSIL">
       <HintPath>packages\LiveCharts.0.9.5\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -85,8 +88,12 @@
     <Compile Include="Results\Commits\DetailedCommitResult.cs" />
     <Compile Include="Results\Commits\FullCommitResult.cs" />
     <Compile Include="Results\DanglingCommitResult.cs" />
+    <Compile Include="Results\FileResult.cs" />
     <Compile Include="Windows\AuthorWindow.xaml.cs">
       <DependentUpon>AuthorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FileWindow.xaml.cs">
+      <DependentUpon>FileWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\FullCommitWindow.xaml.cs">
       <DependentUpon>FullCommitWindow.xaml</DependentUpon>
@@ -117,6 +124,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\AuthorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

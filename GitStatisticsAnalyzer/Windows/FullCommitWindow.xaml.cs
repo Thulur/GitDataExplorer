@@ -3,15 +3,17 @@ using System.Windows;
 
 using GitStatisticsAnalyzer.Commands;
 using GitStatisticsAnalyzer.Results.Commits;
+using System.Windows.Controls;
+using GitStatisticsAnalyzer.Files;
 
 namespace GitStatisticsAnalyzer.Windows
 {
     /// <summary>
     /// Interaction logic for FullCommitView.xaml
     /// </summary>
-    public partial class FullCommitView : ICommitWindow
+    public partial class FullCommitWindow : ICommitWindow
     {
-        public FullCommitView(CommandFactory commandFactory, string id)
+        public FullCommitWindow(CommandFactory commandFactory, string id)
         {
             InitializeComponent();
             CommandFactory = commandFactory;
@@ -22,7 +24,7 @@ namespace GitStatisticsAnalyzer.Windows
 
         public string Id { get; }
 
-        private async void _WindowLoaded(object sender, RoutedEventArgs e)
+        private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
             var command = CommandFactory.GetCommand<FullCommitResult>();
             command.Parameters = Id;
@@ -35,6 +37,15 @@ namespace GitStatisticsAnalyzer.Windows
             emailTextBox.Text = result.Author.Email;
             dateTextBox.Text = result.Date.ToShortDateString();
             fileDataGrid.ItemsSource = result.Files;
+        }
+
+        private void DataGridMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var selectedFile = ((DataGrid)sender).SelectedItem as IFile;
+
+            if (selectedFile == null) return;
+
+            new FileWindow(CommandFactory, selectedFile).Show();
         }
     }
 }

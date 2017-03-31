@@ -15,10 +15,12 @@ namespace GitStatisticsAnalyzer.ResultCommandMapper
             // Commit dependent commands
             commands.Add(typeof(ListSimpleCommitsResult), "log");
             commands.Add(typeof(FullCommitResult), "show");
+            commands.Add(typeof(FileResult), "show");
             commands.Add(typeof(LogResult), "log");
             
             parameters.Add(typeof(ListSimpleCommitsResult), "--oneline");
             parameters.Add(typeof(FullCommitResult), "");
+            parameters.Add(typeof(FileResult), "");
             parameters.Add(typeof(LogResult), "");
 
             // Commit independent commands

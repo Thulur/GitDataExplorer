@@ -90,10 +90,8 @@ namespace GitStatisticsAnalyzer.Graphs
         private void CartesianChartDataClick(object sender, ChartPoint chartPoint)
         {
             var author = authors[chartPoint.Key];
-            var authorWindow = new AuthorWindow
+            var authorWindow = new AuthorWindow(CommandFactory, author)
             {
-                Author = author,
-                CommandFactory = CommandFactory,
                 Title = "Author: " + author
             };
             authorWindow.Show();
