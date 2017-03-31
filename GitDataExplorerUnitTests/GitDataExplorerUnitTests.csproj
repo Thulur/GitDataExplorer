@@ -59,7 +59,7 @@
     <Compile Include="DanglingCommitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitStatisticsAnalyzer\GitDataExplorer.csproj">
+    <ProjectReference Include="..\GitDataExplorer\GitDataExplorer.csproj">
       <Project>{792f1f78-afff-4bd9-86e0-4fef9071379e}</Project>
       <Name>GitDataExplorer</Name>
     </ProjectReference>

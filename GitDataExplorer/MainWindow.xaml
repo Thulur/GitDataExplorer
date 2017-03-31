@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitDataExplorer"
         mc:Ignorable="d"
-        Title="Git Statistics Analyzer" Height="691.636" Width="846.387" FontFamily="Arial" FontSize="13.333" MinHeight="400" MinWidth="640">
+        Title="Git Data Explorer" Height="691.636" Width="846.387" FontFamily="Arial" FontSize="13.333" MinHeight="400" MinWidth="640">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="365*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,13 +19,13 @@
                   MouseDoubleClick="SimpleCommitDoubleClicked" 
                   RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False" 
                   BorderBrush="White" Background="#FFFFFDFD" Foreground="Black" 
-                  HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True" AutoGenerateColumns="False">
+                  HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
                 <DataGridTextColumn Binding="{Binding Message}" Header="Message" Width="*   "/>
             </DataGrid.Columns>
         </DataGrid>
-        <Ribbon x:Name="ribbon" VerticalAlignment="Top" Height="138" Background="White">
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top" Height="138" Background="White" Grid.ColumnSpan="2">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed" />
             </Ribbon.ApplicationMenu>
@@ -50,7 +51,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <DockPanel VerticalAlignment="Bottom">
+        <DockPanel VerticalAlignment="Bottom" Grid.ColumnSpan="2">
             <StatusBar DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FFB5B5B5">
                 <StatusBarItem/>
                 <TextBlock x:Name="currentBranch" Text="" HorizontalAlignment="Right"/>

@@ -13,7 +13,10 @@
                 <RibbonApplicationMenu Visibility="Collapsed" />
             </Ribbon.ApplicationMenu>
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Code">
-                <RibbonGroup Header="Highlighting"/>
+                <RibbonGroup Header="Highlighting">
+                    <RibbonCheckBox IsChecked="True" Label="Highlighting enabled"/>
+                    <RibbonComboBox Label="Language"/>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <avalonedit:TextEditor x:Name="textEditor" Margin="0,142,0,0" FontFamily="Courier New" ShowLineNumbers="True" IsReadOnly="True"/>
