@@ -19,6 +19,6 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <avalonedit:TextEditor x:Name="textEditor" Margin="0,142,0,0" FontFamily="Courier New" ShowLineNumbers="True" IsReadOnly="True"/>
+        <avalonedit:TextEditor x:Name="textEditor" Margin="0,142,0,0" FontFamily="Courier New" ShowLineNumbers="True" IsReadOnly="True" />
     </Grid>
 </Window>
