@@ -1,0 +1,31 @@
+﻿<Window x:Class="GitDataExplorer.Windows.FullCommitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitDataExplorer.Windows"
+        mc:Ignorable="d"
+        Title="CommitView" Height="600" Width="800" Loaded="WindowLoaded">
+    <Grid>
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top" Background="White">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed" />
+            </Ribbon.ApplicationMenu>
+        </Ribbon>
+        <Label x:Name="commitLabel" Content="Commit" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="authorLabel" Content="Author" HorizontalAlignment="Left" Margin="359,168,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="emailLabel" Content="Email" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="dateLabel" Content="Date" HorizontalAlignment="Left" Margin="359,139,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="commitTextBox" HorizontalAlignment="Left" Height="23" Margin="67,142,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
+        <TextBox x:Name="dateTextBox" Height="23" Margin="416,142,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="23" Margin="67,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="287"/>
+        <TextBox x:Name="authorTextBox" Height="23" Margin="416,170,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <DataGrid x:Name="fileDataGrid" Margin="1,199,0,0" ItemsSource="{Binding File}" 
+                  SelectionMode="Single" SelectionUnit ="FullRow" AutoGenerateColumns="False" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True" MouseDoubleClick="DataGridMouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path}" Header="Files" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

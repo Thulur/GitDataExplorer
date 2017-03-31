@@ -1,0 +1,24 @@
+﻿<Window x:Class="GitDataExplorer.Graphs.AuthorCommitGraphWindow"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitDataExplorer.Graphs"
+        mc:Ignorable="d"
+        Title="Commits per Author" Height="501.726" Width="438" Loaded="WindowLoaded">
+    <Grid>
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top"  Background="White" Height="142">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed" />
+            </Ribbon.ApplicationMenu>
+            <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Filter">
+                <RibbonGroup Header="Filter">
+                    <RibbonCheckBox x:Name="excludeMergesCheckBox" Label="Exclude Merges" Checked="ExcludeMergesCheckBoxChecked" Unchecked="ExcludeMergesCheckBoxUnchecked"/>
+                    <RibbonCheckBox x:Name="allBranchesCheckBox" Label="All Branches" Checked="AllBranchesCheckBoxChecked" Unchecked="AllBranchesCheckBoxUnchecked"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <lvc:CartesianChart x:Name="cartesianChart" Margin="15,147,10,10" DataClick="CartesianChartDataClick" DisableAnimations="True"/>
+    </Grid>
+</Window>
