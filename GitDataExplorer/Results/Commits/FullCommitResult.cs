@@ -24,7 +24,7 @@ namespace GitDataExplorer.Results.Commits
 
         public string Message { get; private set; }
 
-        public IList<IFile> Files { get; private set; } 
+        public IList<File> Files { get; private set; } 
 
         public void ParseResult(IList<string> lines)
         {
@@ -56,12 +56,23 @@ namespace GitDataExplorer.Results.Commits
 
         private void ParseFiles(IList<string> lines)
         {
-            var diffLines = lines.Where(l => l.StartsWith("diff --git")).ToList();
-            var files = new List<IFile>();
+            var files = new List<File>();
 
-            foreach (var diffLine in diffLines)
+            for (int i = 0; i < lines.Count; ++i)
             {
-                files.Add(new File(Id, diffLine.Split(' ').Last().Substring(2)));
+                var line = lines[i];
+
+                if (!line.StartsWith("diff --git")) continue;
+
+                var tokens = line.Split(new string[] { " b/" }, StringSplitOptions.None);
+                var file = new File(Id, tokens.Last());
+
+                if (lines[i + 1].StartsWith("deleted file"))
+                {
+                    file.FileState = FileState.DELETED;
+                }
+
+                files.Add(file);
             }
 
             Files = files;

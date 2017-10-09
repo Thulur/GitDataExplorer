@@ -14,8 +14,10 @@
             </Ribbon.ApplicationMenu>
             <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Code">
                 <RibbonGroup Header="Highlighting">
-                    <RibbonCheckBox IsChecked="True" Label="Highlighting enabled"/>
-                    <RibbonComboBox Label="Language"/>
+                    <RibbonCheckBox x:Name="highlightingCheckBox" IsChecked="True" Label="Highlighting enabled" Checked="HighlightingCheckBoxChecked" Unchecked="HighlightingCheckBoxUnchecked"/>
+                </RibbonGroup>
+                <RibbonGroup Header="History">
+                    <RibbonButton Content="" Label="Show History" Height="18" VerticalAlignment="Bottom" Click="ShowHistoryButtonClicked"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

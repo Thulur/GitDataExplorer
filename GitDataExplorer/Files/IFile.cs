@@ -6,8 +6,8 @@
     /// </summary>
     public interface IFile
     {
-        string Path { get; }
+        string Path { get; set; }
 
-        string CommitId { get; }
+        string CommitId { get; set; }
     }
 }

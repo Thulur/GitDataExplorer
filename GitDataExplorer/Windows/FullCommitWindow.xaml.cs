@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 using GitDataExplorer.Commands;
 using GitDataExplorer.Results.Commits;
-using System.Windows.Controls;
 using GitDataExplorer.Files;
 
 namespace GitDataExplorer.Windows
@@ -36,7 +37,7 @@ namespace GitDataExplorer.Windows
             authorTextBox.Text = result.Author.ToString();
             emailTextBox.Text = result.Author.Email;
             dateTextBox.Text = result.Date.ToShortDateString();
-            fileDataGrid.ItemsSource = result.Files;
+            fileDataGrid.ItemsSource = result.Files.Where(f => f.FileState != FileState.DELETED);
         }
 
         private void DataGridMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

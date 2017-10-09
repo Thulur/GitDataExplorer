@@ -1,0 +1,31 @@
+﻿<Window x:Class="GitDataExplorer.Windows.CommitsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitDataExplorer.Windows"
+        mc:Ignorable="d"
+        Title="Commits" Height="490" Width="859" Loaded="WindowLoaded">
+    <Grid>
+        <Ribbon x:Name="ribbon" VerticalAlignment="Top"  Background="White" Height="142">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed" />
+            </Ribbon.ApplicationMenu>
+            <RibbonTab FontSize="13.333" FontFamily="Arial" Header="Commits">
+                <RibbonGroup Header="Order"/>
+            </RibbonTab>
+        </Ribbon>
+        <DataGrid x:Name="dataGrid" Margin="0,142,0,0" ItemsSource="{Binding SimpleCommitResult}" 
+            SelectionMode="Single" SelectionUnit ="FullRow"
+            MouseDoubleClick="SimpleCommitDoubleClicked" 
+            RenderTransformOrigin="0.5,0.5" CanUserResizeColumns="False" CanUserResizeRows="False" 
+            BorderBrush="White" Background="#FFFFFDFD" Foreground="Black" 
+            HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
+                <DataGridTextColumn Binding="{Binding Message}" Header="Message" Width="*   "/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
+
+using GitDataExplorer.Files;
 
 namespace GitDataExplorer.Results.Commits
 {
@@ -16,14 +17,42 @@ namespace GitDataExplorer.Results.Commits
 
         public string Message { get; private set; } = "";
 
+        public List<File> FilesChanged { get; private set; } = new List<File>();
+
         public void ParseResult(IList<string> lines)
         {
-            // The one line commit should only be initialized with a string looking like: <id> <message>
-            Debug.Assert(lines.Count == 1);
-
             var idMessage = lines[0].Split(new char[] { ' ' }, 2);
             Id = idMessage[0];
             Message = idMessage[1];
+
+            // Further lines should only contain create, rename, delete statements
+            for (int i = 1; i < lines.Count; ++i)
+            {
+                ParseStatusLine(lines[i]);
+            }
+        }
+
+        private void ParseStatusLine(string statusLine)
+        {
+            string[] tokens = statusLine.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
+            var file = new File(Id, tokens[1]);
+
+            switch (tokens[0][0])
+            {
+                case 'A':
+                    file.FileState = FileState.CREATED;
+                    break;
+                case 'R':
+                    file.FileState = FileState.RENAMED;
+                    break;
+                case 'D':
+                    file.FileState = FileState.DELETED;
+                    break;
+                default:
+                    break;
+            }
+
+            FilesChanged.Add(file);
         }
     }
 }

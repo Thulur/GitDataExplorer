@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace GitDataExplorer.Results
+﻿namespace GitDataExplorer.Results
 {
-    interface ICommit : IResult
+    public interface ICommit : IResult
     {
         string Id { get; }
     }

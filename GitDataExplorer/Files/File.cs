@@ -8,14 +8,18 @@
             Path = path;
         }
 
-        public string CommitId
-        {
-            get;
-        }
+        public string CommitId { get; set; }
 
-        public string Path
-        {
-            get;
-        }
+        public string Path { get; set; }
+
+        public FileState FileState { get; set; } = FileState.NONE;
+    }
+
+    enum FileState
+    {
+        NONE,
+        CREATED,
+        RENAMED,
+        DELETED
     }
 }

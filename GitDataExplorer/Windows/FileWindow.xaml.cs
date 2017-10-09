@@ -34,8 +34,11 @@ namespace GitDataExplorer.Windows
 
             CommandFactory = commandFactory;
             File = file;
-            Title = File.Path;
         }
+
+        public CommandFactory CommandFactory { get; set; }
+
+        public static readonly Dictionary<string, IList<String>> FileEndingsHighlighting = new Dictionary<string, IList<string>>();
 
         public IFile File
         {
@@ -54,19 +57,45 @@ namespace GitDataExplorer.Windows
         {
             if (CommandFactory == null) return;
 
-            var command = CommandFactory.GetCommand<FileResult>($"{File.CommitId}:{File.Path}");
+            var command = CommandFactory.GetCommand<FileResult>($"{File.CommitId}:\"{File.Path}\"");
+            command.Execute();
+            Title = File.Path;
+            textEditor.Text = String.Join(Environment.NewLine, command.Result.Lines);
+            DetectLanguage();
+        }
+
+        private void HighlightingCheckBoxChecked(object sender, RoutedEventArgs e)
+        {
+            if (File == null) return;
+
+            DetectLanguage();
+        }
+
+        private void HighlightingCheckBoxUnchecked(object sender, RoutedEventArgs e)
+        {
+            textEditor.SyntaxHighlighting = null;
+        }
+
+        private void DetectLanguage()
+        {
             var extension = Path.GetExtension(File.Path);
             var language = FileEndingsHighlighting.Where(s => s.Value.Contains(extension)).FirstOrDefault().Key;
-            command.Execute();
-            textEditor.Text = String.Join(Environment.NewLine, command.Result.Lines);
 
             if (language == null) return;
 
             textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition(language);
         }
 
-        public CommandFactory CommandFactory { get; set; }
+        private void ShowHistoryButtonClicked(object sender, RoutedEventArgs e)
+        {
+            CommitsWindow dialog = new CommitsWindow(CommandFactory, File);
 
-        public static readonly Dictionary<string, IList<String>> FileEndingsHighlighting = new Dictionary<string, IList<string>>();
+            if (dialog.ShowDialog() == true)
+            {
+                ICommit commit = dialog.SelectedCommit;
+                File = dialog.File;
+                FileUpdated();
+            }
+        }
     }
 }
