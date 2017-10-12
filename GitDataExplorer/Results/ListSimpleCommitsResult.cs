@@ -7,6 +7,8 @@ namespace GitDataExplorer.Results
 {
     class ListSimpleCommitsResult : IResult
     {
+        private char[] statusLetters = { 'M', 'A', 'R', 'C', 'D' };
+
         public ExecutionResult ExecutionResult { get; private set; }
 
         public IList<SimpleCommitResult> Commits { get; } = new List<SimpleCommitResult>();
@@ -16,7 +18,7 @@ namespace GitDataExplorer.Results
             var tmpList = new List<string>();
             foreach (var line in lines)
             {
-                if (line.StartsWith("A") || line.StartsWith("M") || line.StartsWith("R"))
+                if (Array.IndexOf(statusLetters, line[0]) >= 0)
                 {
                     tmpList.Add(line);
                 }
@@ -28,7 +30,7 @@ namespace GitDataExplorer.Results
                         result.ParseResult(tmpList);
                         Commits.Add(result);
                     }
-                    
+
                     tmpList.Clear();
                     tmpList.Add(line);
                 }
