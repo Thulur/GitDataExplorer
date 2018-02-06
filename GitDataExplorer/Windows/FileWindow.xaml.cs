@@ -8,6 +8,7 @@ using System.Windows;
 using GitDataExplorer.Commands;
 using GitDataExplorer.Files;
 using GitDataExplorer.Results;
+using GitDataExplorer.Results.Commits;
 
 namespace GitDataExplorer.Windows
 {
@@ -57,10 +58,14 @@ namespace GitDataExplorer.Windows
         {
             if (CommandFactory == null) return;
 
-            var command = CommandFactory.GetCommand<FileResult>($"{File.CommitId}:\"{File.Path}\"");
-            command.Execute();
-            Title = File.Path;
-            textEditor.Text = String.Join(Environment.NewLine, command.Result.Lines);
+            var fileCommand = CommandFactory.GetCommand<FileResult>($"{File.CommitId}:\"{File.Path}\"");
+            var commitCommand = CommandFactory.GetCommand<FullCommitResult>();
+            commitCommand.Parameters = File.CommitId;
+            fileCommand.Execute();
+            commitCommand.Execute();
+
+            Title = $"{File.Path} ({commitCommand.Result.Title})";
+            textEditor.Text = String.Join(Environment.NewLine, fileCommand.Result.Lines);
             DetectLanguage();
         }
 

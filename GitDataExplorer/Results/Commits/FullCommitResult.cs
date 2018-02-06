@@ -93,7 +93,7 @@ namespace GitDataExplorer.Results.Commits
 
         private void ParseTitleAndMessage(IList<string> lines, int startLine)
         {
-            Title = lines[startLine];
+            Title = lines[startLine].Trim();
 
             if (lines.Count > startLine + 1)
             {
