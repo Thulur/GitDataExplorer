@@ -23,7 +23,7 @@ namespace GitDataExplorer.Results
         {
             string versionLine = lines[0];
 
-            if (Regex.IsMatch(versionLine, @"git version [0-9]\.[0-9]\.[0-9]"))
+            if (Regex.IsMatch(versionLine, @"git version [0-9]\.[0-9]\.[0-9][\s\S]*"))
             {
                 string versionString = Regex.Match(versionLine, @"[0-9]\.[0-9]\.[0-9]").ToString();
                 IList<string> versionNumbers = versionString.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
